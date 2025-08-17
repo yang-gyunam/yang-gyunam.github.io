@@ -45,10 +45,11 @@ document.addEventListener('keyup', (e) => {
 });
 
 // Event Listeners for touch input
+const touchOffsetY = 75; // a.k.a Touch-to-move offset
 function handleTouch(e) {
     if (e.touches) {
         player.x = e.touches[0].clientX;
-        player.y = e.touches[0].clientY;
+        player.y = e.touches[0].clientY - touchOffsetY;
         e.preventDefault();
     }
 }
@@ -183,7 +184,7 @@ function gameLoop() {
 setInterval(spawnEnemy, 1000); // Spawn an enemy every second
 
 // Auto-fire for the player
-setInterval(shoot, 400); // Fire a bullet every 200ms
+setInterval(shoot, 200); // Fire a bullet every 200ms
 
 // Start the game loop
 gameLoop();
