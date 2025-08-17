@@ -83,12 +83,29 @@ function render() {
     drawArc(ball.x, ball.y, ball.radius, ball.color);
 }
 
-// 패들 이동 (마우스)
+// 패들 이동 (마우스 및 터치)
 canvas.addEventListener('mousemove', movePaddle);
+canvas.addEventListener('touchmove', movePaddle);
 
 function movePaddle(evt) {
+    evt.preventDefault(); // 스크롤 등 기본 동작 방지
+    let y;
+    if (evt.type === 'touchmove') {
+        const touch = evt.touches[0];
+        y = touch.clientY;
+    } else {
+        y = evt.clientY;
+    }
+
     let rect = canvas.getBoundingClientRect();
-    player.y = evt.clientY - rect.top - player.height / 2;
+    
+    // 캔버스의 CSS 크기와 실제 렌더링 크기 사이의 비율 계산
+    const scaleY = canvas.height / rect.height;
+
+    // 터치/마우스 위치를 캔버스 내부 좌표로 변환
+    const canvasY = (y - rect.top) * scaleY;
+
+    player.y = canvasY - player.height / 2;
 }
 
 // 충돌 감지
