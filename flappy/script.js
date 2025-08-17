@@ -10,7 +10,7 @@ const GRAVITY_RATIO = 0.0007;
 const JUMP_STRENGTH_RATIO = -0.015;
 
 const PIPE_WIDTH_RATIO = 0.15;
-const PIPE_GAP_RATIO = 0.25; // Gap is 25% of canvas height
+const PIPE_GAP_RATIO = 0.35; // Gap is 35% of canvas height
 const PIPE_SPEED_RATIO = 0.005;
 const PIPE_SPAWN_INTERVAL = 120; // in frames
 
