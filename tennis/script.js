@@ -1,190 +1,210 @@
-console.log("Airplane Shooting Game script loaded!");
-
 const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+const context = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// 게임 상수
+const PADDLE_WIDTH = 10, PADDLE_HEIGHT = 100;
+const BALL_RADIUS = 10;
+const NET_WIDTH = 2, NET_HEIGHT = 10;
 
-// Player airplane
-let player = {
+// 게임 객체
+const player = {
+    x: 0,
+    y: (canvas.height - PADDLE_HEIGHT) / 2,
+    width: PADDLE_WIDTH,
+    height: PADDLE_HEIGHT,
+    color: '#FFF',
+    score: 0
+};
+
+const com = {
+    x: canvas.width - PADDLE_WIDTH,
+    y: (canvas.height - PADDLE_HEIGHT) / 2,
+    width: PADDLE_WIDTH,
+    height: PADDLE_HEIGHT,
+    color: '#FFF',
+    score: 0
+};
+
+const ball = {
     x: canvas.width / 2,
-    y: canvas.height - 100,
-    width: 50,
-    height: 50,
-    speed: 5
+    y: canvas.height / 2,
+    radius: BALL_RADIUS,
+    speed: 7,
+    velocityX: 5,
+    velocityY: 5,
+    color: '#FFF'
 };
 
-// Bullets
-let bullets = [];
-let bulletSpeed = 7;
+let isGamePaused = false;
 
-// Enemies
-let enemies = [];
+// 그리기 함수
+function drawRect(x, y, w, h, color) {
+    context.fillStyle = color;
+    context.fillRect(x, y, w, h);
+}
 
-// Keyboard input state
-let keys = {
-    ArrowLeft: false,
-    ArrowRight: false,
-    ArrowUp: false,
-    ArrowDown: false,
-    ' ': false
-};
+function drawArc(x, y, r, color) {
+    context.fillStyle = color;
+    context.beginPath();
+    context.arc(x, y, r, 0, Math.PI * 2, false);
+    context.closePath();
+    context.fill();
+}
 
-// Event Listeners for keyboard input
-document.addEventListener('keydown', (e) => {
-    if (e.key in keys) {
-        keys[e.key] = true;
-    }
-});
+function drawText(text, x, y, color) {
+    context.fillStyle = color;
+    context.font = '75px fantasy';
+    context.fillText(text, x, y);
+}
 
-document.addEventListener('keyup', (e) => {
-    if (e.key in keys) {
-        keys[e.key] = false;
-    }
-});
-
-// Event Listeners for touch input
-const touchOffsetY = 75; // a.k.a Touch-to-move offset
-function handleTouch(e) {
-    if (e.touches) {
-        player.x = e.touches[0].clientX;
-        player.y = e.touches[0].clientY - touchOffsetY;
-        e.preventDefault();
+function drawNet() {
+    for (let i = 0; i <= canvas.height; i += 15) {
+        drawRect(canvas.width / 2 - NET_WIDTH / 2, i, NET_WIDTH, NET_HEIGHT, '#FFF');
     }
 }
 
-canvas.addEventListener('touchstart', handleTouch);
-canvas.addEventListener('touchmove', handleTouch);
+// 렌더링 함수
+function render() {
+    // 캔버스 지우기
+    drawRect(0, 0, canvas.width, canvas.height, '#111');
 
-function shoot() {
-    bullets.push({
-        x: player.x,
-        y: player.y - player.height / 2,
-        width: 5,
-        height: 10,
-        color: 'yellow'
-    });
+    // 네트 그리기
+    drawNet();
+
+    // 점수 그리기
+    drawText(player.score, canvas.width / 4, canvas.height / 5, '#FFF');
+    drawText(com.score, 3 * canvas.width / 4, canvas.height / 5, '#FFF');
+
+    // 패들 그리기
+    drawRect(player.x, player.y, player.width, player.height, player.color);
+    drawRect(com.x, com.y, com.width, com.height, com.color);
+
+    // 공 그리기
+    drawArc(ball.x, ball.y, ball.radius, ball.color);
 }
 
-function spawnEnemy() {
-    const size = 50;
-    const speed = Math.random() < 0.5 ? 2 : 4; // Randomly choose between speed 2 and 4
-    enemies.push({
-        x: Math.random() * (canvas.width - size),
-        y: -size,
-        width: size,
-        height: size,
-        color: 'red',
-        speed: speed
-    });
-}
+// 패들 이동 (마우스 및 터치)
+canvas.addEventListener('mousemove', movePaddle);
+canvas.addEventListener('touchmove', movePaddle);
 
-function drawPlayer() {
-    ctx.beginPath();
-    ctx.moveTo(player.x, player.y - player.height / 2);
-    ctx.lineTo(player.x - player.width / 2, player.y + player.height / 2);
-    ctx.lineTo(player.x + player.width / 2, player.y + player.height / 2);
-    ctx.closePath();
-    ctx.fillStyle = 'blue'; // Changed player color to blue
-    ctx.fill();
-}
-
-function updatePlayerPosition() {
-    if (keys.ArrowLeft && player.x - player.width / 2 > 0) {
-        player.x -= player.speed;
+function movePaddle(evt) {
+    evt.preventDefault(); // 스크롤 등 기본 동작 방지
+    let y;
+    if (evt.type === 'touchmove') {
+        const touch = evt.touches[0];
+        y = touch.clientY;
+    } else {
+        y = evt.clientY;
     }
-    if (keys.ArrowRight && player.x + player.width / 2 < canvas.width) {
-        player.x += player.speed;
+
+    let rect = canvas.getBoundingClientRect();
+    
+    // 캔버스의 CSS 크기와 실제 렌더링 크기 사이의 비율 계산
+    const scaleY = canvas.height / rect.height;
+
+    // 터치/마우스 위치를 캔버스 내부 좌표로 변환
+    const canvasY = (y - rect.top) * scaleY;
+
+    player.y = canvasY - player.height / 2;
+}
+
+// 충돌 감지
+function collision(b, p) {
+    p.top = p.y;
+    p.bottom = p.y + p.height;
+    p.left = p.x;
+    p.right = p.x + p.width;
+
+    b.top = b.y - b.radius;
+    b.bottom = b.y + b.radius;
+    b.left = b.x - b.radius;
+    b.right = b.x + b.radius;
+
+    return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
+}
+
+// 공 리셋
+function resetBall() {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+    ball.speed = 7;
+    ball.velocityX = -ball.velocityX;
+}
+
+function pauseAndReset() {
+    isGamePaused = true;
+    setTimeout(() => {
+        resetBall();
+        isGamePaused = false;
+    }, 2000); // 2초 딜레이
+}
+
+// 업데이트 함수
+function update() {
+    if (isGamePaused) return;
+
+    // 공 이동
+    ball.x += ball.velocityX;
+    ball.y += ball.velocityY;
+
+    // 컴퓨터 패들 AI
+    let computerLevel = 0.1;
+    com.y += (ball.y - (com.y + com.height / 2)) * computerLevel;
+
+
+    // 벽 충돌 (상하)
+    if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+        ball.velocityY = -ball.velocityY;
     }
-    if (keys.ArrowUp && player.y - player.height / 2 > 0) {
-        player.y -= player.speed;
+
+    // 패들 충돌
+    let p = (ball.x < canvas.width / 2) ? player : com;
+    if (collision(ball, p)) {
+        // 공이 패들의 어디에 부딪혔는지 확인
+        let collidePoint = (ball.y - (p.y + p.height / 2));
+        collidePoint = collidePoint / (p.height / 2);
+
+        // 반사 각도 계산
+        let angleRad = (Math.PI / 4) * collidePoint;
+
+        // X 방향 변경
+        let direction = (ball.x < canvas.width / 2) ? 1 : -1;
+        ball.velocityX = direction * ball.speed * Math.cos(angleRad);
+        ball.velocityY = ball.speed * Math.sin(angleRad);
+
+        // 공 속도 증가
+        ball.speed += 0.5;
     }
-    if (keys.ArrowDown && player.y + player.height / 2 < canvas.height) {
-        player.y += player.speed;
+
+    // 점수 업데이트
+    if (ball.x - ball.radius < 0) {
+        com.score++;
+        pauseAndReset();
+    } else if (ball.x + ball.radius > canvas.width) {
+        player.score++;
+        pauseAndReset();
     }
 }
 
-function drawBullets() {
-    bullets.forEach(bullet => {
-        ctx.fillStyle = bullet.color;
-        ctx.fillRect(bullet.x - bullet.width / 2, bullet.y, bullet.width, bullet.height);
-    });
+// 창 크기 조절
+function resizeCanvas() {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const scale = Math.min(viewportWidth / 800, viewportHeight / 600);
+
+    canvas.style.width = (800 * scale) + 'px';
+    canvas.style.height = (600 * scale) + 'px';
 }
 
-function updateBullets() {
-    for (let i = bullets.length - 1; i >= 0; i--) {
-        const bullet = bullets[i];
-        bullet.y -= bulletSpeed;
-        if (bullet.y < 0) {
-            bullets.splice(i, 1);
-        }
-    }
-}
+window.addEventListener('load', resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
 
-function drawEnemies() {
-    enemies.forEach(enemy => {
-        ctx.fillStyle = enemy.color;
-        ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-    });
-}
-
-function updateEnemies() {
-    for (let i = enemies.length - 1; i >= 0; i--) {
-        const enemy = enemies[i];
-        enemy.y += enemy.speed; // Use the enemy's individual speed
-        if (enemy.y > canvas.height) {
-            enemies.splice(i, 1);
-        }
-    }
-}
-
-function detectCollisions() {
-    // Loop through enemies and bullets to check for collisions
-    for (let i = enemies.length - 1; i >= 0; i--) {
-        for (let j = bullets.length - 1; j >= 0; j--) {
-            const enemy = enemies[i];
-            const bullet = bullets[j];
-
-            if (bullet && enemy &&
-                bullet.x < enemy.x + enemy.width &&
-                bullet.x + bullet.width > enemy.x &&
-                bullet.y < enemy.y + enemy.height &&
-                bullet.y + bullet.height > enemy.y
-            ) {
-                // Collision detected
-                enemies.splice(i, 1);
-                bullets.splice(j, 1);
-            }
-        }
-    }
-}
-
-
+// 게임 루프
 function gameLoop() {
-    // Update game state
-    updatePlayerPosition();
-    updateBullets();
-    updateEnemies();
-    detectCollisions();
-
-    // Clear the canvas
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw game elements
-    drawPlayer();
-    drawBullets();
-    drawEnemies();
-
-    requestAnimationFrame(gameLoop);
+    update();
+    render();
 }
 
-// Spawn enemies periodically
-setInterval(spawnEnemy, 1000); // Spawn an enemy every second
-
-// Auto-fire for the player
-setInterval(shoot, 200); // Fire a bullet every 200ms
-
-// Start the game loop
-gameLoop();
+// 프레임 속도 설정
+const framePerSecond = 50;
+setInterval(gameLoop, 1000 / framePerSecond);
