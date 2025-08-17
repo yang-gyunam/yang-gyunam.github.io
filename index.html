@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 선택</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .game-list {
+            text-align: center;
+        }
+        .game-list h1 {
+            margin-bottom: 2rem;
+        }
+        .game-list a {
+            display: block;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+        .game-list a:hover {
+            background-color: #e9e9e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-list">
+        <h1>플레이할 게임을 선택하세요</h1>
+        <a href="flappy/index.html">플래피</a>
+        <a href="memory/index.html">기억력</a>
+        <a href="shooting/index.html">비행기</a>
+        <a href="tennis/index.html">테니스</a>
+    </div>
+</body>
+</html>
