@@ -84,8 +84,8 @@ function render() {
 }
 
 // 패들 이동 (마우스 및 터치)
-canvas.addEventListener('mousemove', movePaddle);
-canvas.addEventListener('touchmove', movePaddle);
+document.addEventListener('mousemove', movePaddle);
+document.addEventListener('touchmove', movePaddle);
 
 function movePaddle(evt) {
     evt.preventDefault(); // 스크롤 등 기본 동작 방지
