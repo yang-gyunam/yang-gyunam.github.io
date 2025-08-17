@@ -36,9 +36,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key in keys) {
         keys[e.key] = true;
     }
-    if (e.key === ' ') {
-        shoot();
-    }
 });
 
 document.addEventListener('keyup', (e) => {
@@ -46,6 +43,18 @@ document.addEventListener('keyup', (e) => {
         keys[e.key] = false;
     }
 });
+
+// Event Listeners for touch input
+function handleTouch(e) {
+    if (e.touches) {
+        player.x = e.touches[0].clientX;
+        player.y = e.touches[0].clientY;
+        e.preventDefault();
+    }
+}
+
+canvas.addEventListener('touchstart', handleTouch);
+canvas.addEventListener('touchmove', handleTouch);
 
 function shoot() {
     bullets.push({
@@ -172,6 +181,9 @@ function gameLoop() {
 
 // Spawn enemies periodically
 setInterval(spawnEnemy, 1000); // Spawn an enemy every second
+
+// Auto-fire for the player
+setInterval(shoot, 400); // Fire a bullet every 200ms
 
 // Start the game loop
 gameLoop();
