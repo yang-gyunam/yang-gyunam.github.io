@@ -1,9 +1,40 @@
 body {
     margin: 0;
-    overflow: hidden; /* Hide scrollbars */
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000428 0%, #004e92 50%, #000428 100%);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 canvas {
-    display: block; /* Remove default margin */
-    background-color: #000;
+    display: block;
+    max-width: 100vw;
+    max-height: 100vh;
+    touch-action: none;
+    border: 2px solid #FFD700;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    canvas {
+        border: 1px solid #FFD700;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    body {
+        padding: 5px;
+    }
+    
+    canvas {
+        border: 1px solid #FFD700;
+    }
 }

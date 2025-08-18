@@ -5,44 +5,192 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게임 선택</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            margin: 0;
         }
+        
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        
         .game-list {
             text-align: center;
         }
+        
         .game-list h1 {
-            margin-bottom: 2rem;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
-        .game-list a {
-            display: block;
-            padding: 1rem 2rem;
-            margin: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
             text-decoration: none;
-            color: #333;
-            background-color: #fff;
-            transition: background-color 0.3s;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .game-list a:hover {
-            background-color: #e9e9e9;
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .game-card:hover::before {
+            left: 100%;
+        }
+        
+        .game-emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .game-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .game-container {
+                padding: 20px;
+            }
+            
+            .game-list h1 {
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .game-card {
+                padding: 20px;
+            }
+            
+            .game-emoji {
+                font-size: 2.5em;
+            }
+            
+            .game-title {
+                font-size: 1.3em;
+            }
+            
+            .subtitle {
+                font-size: 1em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-list h1 {
+                font-size: 1.8em;
+            }
+            
+            .game-card {
+                padding: 15px;
+            }
+            
+            .game-emoji {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="game-list">
-        <h1>플레이할 게임을 선택하세요</h1>
-        <a href="flappy/index.html">플래피</a>
-        <a href="memory/index.html">기억력</a>
-        <a href="shooting/index.html">비행기</a>
-        <a href="tennis/index.html">테니스</a>
+    <div class="game-container">
+        <div class="game-list">
+            <h1>🎮 캐쥬얼 게임</h1>
+            <p class="subtitle">즐거운 미니 게임을 선택하세요!</p>
+            
+            <div class="games-grid">
+                <a href="flappy/index.html" class="game-card">
+                    <span class="game-emoji">🐦</span>
+                    <div class="game-title">플래피 버드</div>
+                    <div class="game-description">파이프를 피해 날아가는 중독성 게임</div>
+                </a>
+                
+                <a href="memory/index.html" class="game-card">
+                    <span class="game-emoji">🧠</span>
+                    <div class="game-title">기억력 게임</div>
+                    <div class="game-description">카드를 맞추며 기억력을 효련하세요</div>
+                </a>
+                
+                <a href="shooting/index.html" class="game-card">
+                    <span class="game-emoji">🚀</span>
+                    <div class="game-title">스페이스 슈터</div>
+                    <div class="game-description">우주에서 적을 물리치는 액션 게임</div>
+                </a>
+                
+                <a href="tennis/index.html" class="game-card">
+                    <span class="game-emoji">🎾</span>
+                    <div class="game-title">테니스 게임</div>
+                    <div class="game-description">전략적인 탁구 게임으로 승부를 결정하세요</div>
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
