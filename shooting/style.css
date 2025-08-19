@@ -20,12 +20,35 @@ canvas {
     max-height: 100vh;
     touch-action: none;
     border: 2px solid #FFD700;
+    width: 90vw;
+    height: 90vh;
+    max-width: 800px;
+    max-height: 600px;
 }
 
 /* 모바일 최적화 */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
     canvas {
         border: 1px solid #FFD700;
+        width: 95vw;
+        height: 85vh;
+        max-width: none;
+        max-height: none;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    canvas {
+        width: 98vw;
+        height: 88vh;
     }
 }
 
@@ -36,5 +59,7 @@ canvas {
     
     canvas {
         border: 1px solid #FFD700;
+        width: 90vw;
+        height: 95vh;
     }
 }

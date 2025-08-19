@@ -849,5 +849,29 @@ setInterval(() => {
     }
 }, 200); // Fire a bullet every 200ms
 
+// 페이지 가시성 API를 사용한 성능 최적화
+let isPageVisible = !document.hidden;
+
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        // 페이지가 숨겨지면 자동으로 일시정지
+        isPageVisible = false;
+        if (!gameOver) {
+            isPaused = true;
+        }
+    } else {
+        // 페이지가 다시 보이면 게임 재개 준비
+        isPageVisible = true;
+        if (!gameOver && isPaused) {
+            // 자동으로 재개 (사용자가 수동으로 일시정지한 것이 아니라면)
+            setTimeout(() => {
+                if (isPaused && isPageVisible) {
+                    isPaused = false;
+                }
+            }, 100);
+        }
+    }
+});
+
 // Start the game loop
 gameLoop();

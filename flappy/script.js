@@ -809,3 +809,27 @@ window.addEventListener('resize', () => {
         pipe.speed = canvas.width * PIPE_SPEED_RATIO;
     }
 });
+
+// 페이지 가시성 API를 사용한 성능 최적화
+let isPageVisible = !document.hidden;
+
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        // 페이지가 숨겨지면 자동으로 일시정지
+        isPageVisible = false;
+        if (gameStarted && !gameOver) {
+            isPaused = true;
+        }
+    } else {
+        // 페이지가 다시 보이면 게임 재개 준비
+        isPageVisible = true;
+        if (gameStarted && !gameOver && isPaused) {
+            // 사용자가 수동으로 일시정지한 것이 아니라면 자동 재개
+            setTimeout(() => {
+                if (isPaused && isPageVisible) {
+                    isPaused = false;
+                }
+            }, 100);
+        }
+    }
+});

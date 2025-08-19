@@ -400,4 +400,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial game start
     createBoard(currentDifficulty);
     updateUI();
+    
+    // 페이지 가시성 API를 사용한 성능 최적화
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            // 페이지가 숨겨지면 카드 뒤집기 애니메이션 중지
+            const flippedCards = document.querySelectorAll('.card.flipped:not(.matched)');
+            if (flippedCards.length > 0 && !isProcessing) {
+                // 뒤집힌 카드들을 원래대로 돌려놓음
+                setTimeout(() => {
+                    flippedCards.forEach(card => {
+                        if (!card.classList.contains('matched')) {
+                            card.classList.remove('flipped');
+                        }
+                    });
+                    flippedCards.length = 0;
+                }, 100);
+            }
+        }
+    });
 });

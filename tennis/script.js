@@ -484,21 +484,43 @@ function render() {
 }
 
 // 패들 이동 (마우스 및 터치)
+let isTouch = false;
 document.addEventListener('mousemove', movePaddle);
+document.addEventListener('touchstart', handleTouchStart, { passive: false });
 document.addEventListener('touchmove', movePaddle, { passive: false });
+document.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+function handleTouchStart(evt) {
+    if (!gameStarted || gameOver) return;
+    evt.preventDefault();
+    isTouch = true;
+    movePaddle(evt);
+}
+
+function handleTouchEnd(evt) {
+    evt.preventDefault();
+    isTouch = false;
+}
 
 function movePaddle(evt) {
     if (!gameStarted || gameOver) return;
     
     evt.preventDefault(); // 스크롤 등 기본 동작 방지
     let x, y;
-    if (evt.type === 'touchmove') {
-        const touch = evt.touches[0];
-        x = touch.clientX;
-        y = touch.clientY;
-    } else {
+    if (evt.type === 'touchmove' || evt.type === 'touchstart') {
+        if (evt.touches && evt.touches.length > 0) {
+            const touch = evt.touches[0];
+            x = touch.clientX;
+            y = touch.clientY;
+        } else {
+            return; // 터치 정보가 없으면 종료
+        }
+    } else if (evt.type === 'mousemove' && !isTouch) {
+        // 터치 중이 아닐 때만 마우스 이벤트 처리
         x = evt.clientX;
         y = evt.clientY;
+    } else {
+        return; // 처리하지 않을 이벤트
     }
 
     let rect = canvas.getBoundingClientRect();
@@ -536,12 +558,25 @@ function collision(b, p) {
     return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
 }
 
-// 공 리셋
+// 공 리셋 (초기 속도 랜덤화)
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
     ball.speed = difficultySettings[difficulty].ballSpeed;
-    ball.velocityX = -ball.velocityX;
+    
+    // 초기 방향 랜덤화
+    const randomAngle = (Math.random() - 0.5) * Math.PI / 3; // -30도 ~ +30도
+    const direction = Math.random() < 0.5 ? -1 : 1;
+    
+    if (isMobile && window.innerHeight > window.innerWidth) {
+        // 세로 모드: Y축이 주 방향
+        ball.velocityY = direction * ball.speed * Math.cos(randomAngle);
+        ball.velocityX = ball.speed * Math.sin(randomAngle);
+    } else {
+        // 일반 모드: X축이 주 방향
+        ball.velocityX = direction * ball.speed * Math.cos(randomAngle);
+        ball.velocityY = ball.speed * Math.sin(randomAngle);
+    }
 }
 
 function pauseAndReset() {
@@ -560,19 +595,45 @@ function update() {
     ball.x += ball.velocityX;
     ball.y += ball.velocityY;
 
-    // 컴퓨터 패들 AI
+    // 컴퓨터 패들 AI (개선된 지능)
     let computerLevel = difficultySettings[difficulty].aiSpeed;
     
-    // 모바일 세로 모드에서는 AI 패들이 좌우로 움직임
+    // 공이 AI 쪽으로 향하고 있을 때만 적극적으로 움직임
+    let aiShouldMove = false;
     if (isMobile && window.innerHeight > window.innerWidth) {
-        // 세로 테니스: AI 패들은 위쪽, 좌우로 움직임
-        com.x += (ball.x - (com.x + com.width / 2)) * computerLevel;
-        // 패들이 화면 밖으로 나가지 않도록 제한
+        // 세로 모드: 공이 위쪽(AI)으로 향하고 있는지 확인
+        aiShouldMove = ball.velocityY < 0 && ball.y < canvas.height * 0.7;
+    } else {
+        // 일반 모드: 공이 오른쪽(AI)으로 향하고 있는지 확인  
+        aiShouldMove = ball.velocityX > 0 && ball.x > canvas.width * 0.3;
+    }
+    
+    // AI가 움직여야 할 때만 추적, 그렇지 않으면 중앙으로 천천히 이동
+    if (aiShouldMove) {
+        if (isMobile && window.innerHeight > window.innerWidth) {
+            // 세로 테니스: AI 패들은 위쪽, 좌우로 움직임
+            const targetX = ball.x - com.width / 2;
+            com.x += (targetX - com.x) * computerLevel;
+        } else {
+            // 일반 테니스: AI 패들은 오른쪽, 위아래로 움직임
+            const targetY = ball.y - com.height / 2;
+            com.y += (targetY - com.y) * computerLevel;
+        }
+    } else {
+        // 공이 멀리 있을 때는 중앙으로 천천히 이동
+        if (isMobile && window.innerHeight > window.innerWidth) {
+            const centerX = (canvas.width - com.width) / 2;
+            com.x += (centerX - com.x) * (computerLevel * 0.3);
+        } else {
+            const centerY = (canvas.height - com.height) / 2;
+            com.y += (centerY - com.y) * (computerLevel * 0.3);
+        }
+    }
+    
+    // 패들이 화면 밖으로 나가지 않도록 제한
+    if (isMobile && window.innerHeight > window.innerWidth) {
         com.x = Math.max(0, Math.min(canvas.width - com.width, com.x));
     } else {
-        // 일반 테니스: AI 패들은 오른쪽, 위아래로 움직임
-        com.y += (ball.y - (com.y + com.height / 2)) * computerLevel;
-        // 패들이 화면 밖으로 나가지 않도록 제한
         com.y = Math.max(0, Math.min(canvas.height - com.height, com.y));
     }
 
@@ -893,13 +954,29 @@ function drawGameOverScreen() {
     context.textAlign = 'left';
 }
 
-// 클릭 이벤트 처리
+// 클릭/터치 이벤트 처리
 function handleClick(evt) {
+    evt.preventDefault(); // 기본 동작 방지
+    
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
-    const x = (evt.clientX - rect.left) * scaleX;
-    const y = (evt.clientY - rect.top) * scaleY;
+    
+    let x, y;
+    if (evt.type === 'touchstart' || evt.type === 'touchend') {
+        if (evt.touches && evt.touches.length > 0) {
+            x = (evt.touches[0].clientX - rect.left) * scaleX;
+            y = (evt.touches[0].clientY - rect.top) * scaleY;
+        } else if (evt.changedTouches && evt.changedTouches.length > 0) {
+            x = (evt.changedTouches[0].clientX - rect.left) * scaleX;
+            y = (evt.changedTouches[0].clientY - rect.top) * scaleY;
+        } else {
+            return; // 터치 정보가 없으면 종료
+        }
+    } else {
+        x = (evt.clientX - rect.left) * scaleX;
+        y = (evt.clientY - rect.top) * scaleY;
+    }
     
     // 게임 시작 전
     if (!gameStarted && !gameOver) {
@@ -1049,7 +1126,24 @@ document.addEventListener('keydown', (e) => {
 
 window.addEventListener('load', resizeCanvas);
 window.addEventListener('resize', resizeCanvas);
-canvas.addEventListener('click', handleClick);
+// 터치와 클릭 이벤트 중복 방지
+let lastTouchTime = 0;
+
+function handleClickWithTouchCheck(evt) {
+    // 터치 이벤트 후 300ms 이내의 클릭 이벤트는 무시
+    if (evt.type === 'click' && Date.now() - lastTouchTime < 300) {
+        return;
+    }
+    handleClick(evt);
+}
+
+function handleTouchClick(evt) {
+    lastTouchTime = Date.now();
+    handleClick(evt);
+}
+
+canvas.addEventListener('click', handleClickWithTouchCheck);
+canvas.addEventListener('touchstart', handleTouchClick, { passive: false });
 
 // 게임 루프
 function gameLoop() {
@@ -1057,6 +1151,29 @@ function gameLoop() {
     render();
 }
 
-// 프레임 속도 설정
-const framePerSecond = 50;
-setInterval(gameLoop, 1000 / framePerSecond);
+// 프레임 속도 설정 (모바일 최적화)
+let framePerSecond = isMobile ? 40 : 50;
+let gameLoopId;
+
+function startGameLoop() {
+    if (gameLoopId) {
+        clearInterval(gameLoopId);
+    }
+    gameLoopId = setInterval(gameLoop, 1000 / framePerSecond);
+}
+
+// 페이지 가시성 API를 사용한 성능 최적화
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        // 페이지가 숨겨지면 게임 루프 중지
+        if (gameLoopId) {
+            clearInterval(gameLoopId);
+            gameLoopId = null;
+        }
+    } else {
+        // 페이지가 다시 보이면 게임 루프 재시작
+        startGameLoop();
+    }
+});
+
+startGameLoop();
