@@ -605,77 +605,100 @@ function update() {
         // 패들 히트 사운드
         soundSystem.playPaddleHit();
         
-        // 패들의 라운드 끝부분에서의 충돌 체크
-        const paddleRadius = p.width / 2;
-        const ballCenterY = ball.y;
-        const paddleTopY = p.y + paddleRadius;
-        const paddleBottomY = p.y + p.height - paddleRadius;
-        
-        let collidePoint, angleRad;
-        
-        // 라운드 끝부분 (위쪽) 충돌
-        if (ballCenterY < paddleTopY) {
-            const paddleCenterX = p.x + p.width / 2;
-            const paddleCenterY = paddleTopY;
-            const dx = ball.x - paddleCenterX;
-            const dy = ball.y - paddleCenterY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+        // 모바일 세로 모드에서는 다른 충돌 처리
+        if (isMobile && window.innerHeight > window.innerWidth) {
+            // 세로 테니스: 패들이 위아래에 있으므로 X축 충돌 계산
+            const paddleRadius = p.height / 2; // 세로 모드에서는 height가 짧은 길이
+            const ballCenterX = ball.x;
+            const paddleLeftX = p.x + paddleRadius;
+            const paddleRightX = p.x + p.width - paddleRadius;
             
-            if (distance <= paddleRadius + ball.radius) {
-                // 원형 충돌에서의 반사각 계산
-                angleRad = Math.atan2(dy, dx);
-                // 더 극단적인 각도 생성 (라운드 끝에서)
-                const extraAngle = (Math.PI / 6) * (dy < 0 ? -1 : 1); // 30도 추가
-                angleRad += extraAngle;
-            } else {
-                // 일반적인 패들 면 충돌
-                collidePoint = (ball.y - (p.y + p.height / 2)) / (p.height / 2);
-                angleRad = (Math.PI / 4) * collidePoint;
-            }
-        }
-        // 라운드 끝부분 (아래쪽) 충돌
-        else if (ballCenterY > paddleBottomY) {
-            const paddleCenterX = p.x + p.width / 2;
-            const paddleCenterY = paddleBottomY;
-            const dx = ball.x - paddleCenterX;
-            const dy = ball.y - paddleCenterY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            let collidePoint, angleRad;
             
-            if (distance <= paddleRadius + ball.radius) {
-                // 원형 충돌에서의 반사각 계산
-                angleRad = Math.atan2(dy, dx);
-                // 더 극단적인 각도 생성 (라운드 끝에서)
-                const extraAngle = (Math.PI / 6) * (dy < 0 ? -1 : 1); // 30도 추가
-                angleRad += extraAngle;
-            } else {
-                // 일반적인 패들 면 충돌
-                collidePoint = (ball.y - (p.y + p.height / 2)) / (p.height / 2);
-                angleRad = (Math.PI / 4) * collidePoint;
-            }
-        }
-        // 일반적인 패들 면 충돌
-        else {
-            collidePoint = (ball.y - (p.y + p.height / 2)) / (p.height / 2);
-            angleRad = (Math.PI / 4) * collidePoint;
-        }
-
-        // X 방향 변경 (라운드 끝에서는 각도에 따라 계산)
-        let direction = (ball.x < canvas.width / 2) ? 1 : -1;
-        
-        if (ballCenterY < paddleTopY || ballCenterY > paddleBottomY) {
-            // 라운드 끝에서의 반사
-            ball.velocityX = ball.speed * Math.cos(angleRad);
-            ball.velocityY = ball.speed * Math.sin(angleRad);
+            // 패들의 충돌 지점 계산 (좌우 비율)
+            collidePoint = (ball.x - (p.x + p.width / 2)) / (p.width / 2);
+            angleRad = (Math.PI / 4) * collidePoint; // 최대 45도 각도
             
-            // 방향 보정 (항상 올바른 방향으로)
-            if ((ball.x < canvas.width / 2 && ball.velocityX < 0) || 
-                (ball.x > canvas.width / 2 && ball.velocityX > 0)) {
-                ball.velocityX = -ball.velocityX;
-            }
+            // Y 방향 변경 (세로 테니스에서는 Y축이 주 방향)
+            let direction = (ball.y < canvas.height / 2) ? 1 : -1; // 위에서 아래로 또는 아래에서 위로
+            
+            // 속도 계산 (세로 모드에서는 X와 Y가 반대)
+            ball.velocityY = direction * ball.speed * Math.cos(angleRad);
+            ball.velocityX = ball.speed * Math.sin(angleRad);
+            
         } else {
-            // 일반적인 면에서의 반사
-            ball.velocityX = direction * ball.speed * Math.cos(angleRad);
-            ball.velocityY = ball.speed * Math.sin(angleRad);
+            // 일반 테니스 모드 (기존 코드)
+            const paddleRadius = p.width / 2;
+            const ballCenterY = ball.y;
+            const paddleTopY = p.y + paddleRadius;
+            const paddleBottomY = p.y + p.height - paddleRadius;
+            
+            let collidePoint, angleRad;
+            
+            // 라운드 끝부분 (위쪽) 충돌
+            if (ballCenterY < paddleTopY) {
+                const paddleCenterX = p.x + p.width / 2;
+                const paddleCenterY = paddleTopY;
+                const dx = ball.x - paddleCenterX;
+                const dy = ball.y - paddleCenterY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance <= paddleRadius + ball.radius) {
+                    // 원형 충돌에서의 반사각 계산
+                    angleRad = Math.atan2(dy, dx);
+                    // 더 극단적인 각도 생성 (라운드 끝에서)
+                    const extraAngle = (Math.PI / 6) * (dy < 0 ? -1 : 1); // 30도 추가
+                    angleRad += extraAngle;
+                } else {
+                    // 일반적인 패들 면 충돌
+                    collidePoint = (ball.y - (p.y + p.height / 2)) / (p.height / 2);
+                    angleRad = (Math.PI / 4) * collidePoint;
+                }
+            }
+            // 라운드 끝부분 (아래쪽) 충돌
+            else if (ballCenterY > paddleBottomY) {
+                const paddleCenterX = p.x + p.width / 2;
+                const paddleCenterY = paddleBottomY;
+                const dx = ball.x - paddleCenterX;
+                const dy = ball.y - paddleCenterY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance <= paddleRadius + ball.radius) {
+                    // 원형 충돌에서의 반사각 계산
+                    angleRad = Math.atan2(dy, dx);
+                    // 더 극단적인 각도 생성 (라운드 끝에서)
+                    const extraAngle = (Math.PI / 6) * (dy < 0 ? -1 : 1); // 30도 추가
+                    angleRad += extraAngle;
+                } else {
+                    // 일반적인 패들 면 충돌
+                    collidePoint = (ball.y - (p.y + p.height / 2)) / (p.height / 2);
+                    angleRad = (Math.PI / 4) * collidePoint;
+                }
+            }
+            // 일반적인 패들 면 충돌
+            else {
+                collidePoint = (ball.y - (p.y + p.height / 2)) / (p.height / 2);
+                angleRad = (Math.PI / 4) * collidePoint;
+            }
+
+            // X 방향 변경 (라운드 끝에서는 각도에 따라 계산)
+            let direction = (ball.x < canvas.width / 2) ? 1 : -1;
+            
+            if (ballCenterY < paddleTopY || ballCenterY > paddleBottomY) {
+                // 라운드 끝에서의 반사
+                ball.velocityX = ball.speed * Math.cos(angleRad);
+                ball.velocityY = ball.speed * Math.sin(angleRad);
+                
+                // 방향 보정 (항상 올바른 방향으로)
+                if ((ball.x < canvas.width / 2 && ball.velocityX < 0) || 
+                    (ball.x > canvas.width / 2 && ball.velocityX > 0)) {
+                    ball.velocityX = -ball.velocityX;
+                }
+            } else {
+                // 일반적인 면에서의 반사
+                ball.velocityX = direction * ball.speed * Math.cos(angleRad);
+                ball.velocityY = ball.speed * Math.sin(angleRad);
+            }
         }
 
         // 공 속도 증가
