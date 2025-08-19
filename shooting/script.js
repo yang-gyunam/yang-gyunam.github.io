@@ -104,9 +104,12 @@ function setupCanvas() {
         canvas.height = Math.min(window.innerHeight, 800);
     }
     
+    // 캔버스 크기 변경됨 - 나중에 updatePlayerSize()를 호출해야 함
+    
     return { isMobile };
 }
 
+// 먼저 캔버스만 설정
 const { isMobile } = setupCanvas();
 
 // Game variables
@@ -123,13 +126,43 @@ let hitEffect = { active: false, time: 0 };
 let damageText = [];
 
 // Player airplane
+// 화면 크기에 비례한 플레이어 크기 계산
+function getPlayerSize() {
+    const deviceInfo = detectDevice();
+    if (deviceInfo.isMobile) {
+        // 모바일: 화면 크기에 비례
+        return {
+            width: Math.min(canvas.width * 0.08, 40),  // 화면 너비의 8%, 최대 40px
+            height: Math.min(canvas.height * 0.06, 40) // 화면 높이의 6%, 최대 40px
+        };
+    } else {
+        // 데스크톱: 기존 크기
+        return { width: 50, height: 50 };
+    }
+}
+
+let playerSize = getPlayerSize();
 let player = {
     x: canvas.width / 2,
     y: canvas.height - 100,
-    width: 50,
-    height: 50,
+    width: playerSize.width,
+    height: playerSize.height,
     speed: 5
 };
+
+// 플레이어 초기화 후 크기 업데이트
+function updatePlayerSize() {
+    const newPlayerSize = getPlayerSize();
+    player.width = newPlayerSize.width;
+    player.height = newPlayerSize.height;
+    
+    // 플레이어 위치도 캔버스 크기에 맞게 조정
+    player.x = Math.min(player.x, canvas.width - player.width/2);
+    player.y = Math.min(player.y, canvas.height - player.height/2);
+}
+
+// 플레이어 객체 초기화 후 바로 크기 업데이트
+updatePlayerSize();
 
 // Bullets
 let bullets = [];
@@ -163,12 +196,25 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-// Event Listeners for touch input
-const touchOffsetY = 75; // a.k.a Touch-to-move offset
+// Event Listeners for touch input (개선된 터치 오프셋)
 function handleTouch(e) {
     if (e.touches) {
-        player.x = e.touches[0].clientX;
-        player.y = e.touches[0].clientY - touchOffsetY;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        // 터치 좌표를 캔버스 좌표로 변환
+        const touchX = (e.touches[0].clientX - rect.left) * scaleX;
+        const touchY = (e.touches[0].clientY - rect.top) * scaleY;
+        
+        // 화면 크기에 비례한 오프셋 계산
+        const touchOffsetY = canvas.height * 0.15; // 화면 높이의 15%
+        const touchOffsetX = canvas.width * 0.08;  // 화면 너비의 8%
+        
+        // 오프셋 적용 - 비행기를 손가락보다 위쪽, 왼쪽에 배치
+        player.x = Math.max(0, Math.min(canvas.width - player.width, touchX - touchOffsetX));
+        player.y = Math.max(0, Math.min(canvas.height - player.height, touchY - touchOffsetY));
+        
         e.preventDefault();
     }
 }
@@ -870,6 +916,15 @@ document.addEventListener('visibilitychange', function() {
                 }
             }, 100);
         }
+    }
+});
+
+// 윈도우 리사이즈 이벤트 처리
+window.addEventListener('resize', () => {
+    setupCanvas();
+    // 플레이어가 초기화되어 있다면 크기 업데이트
+    if (typeof player !== 'undefined' && typeof updatePlayerSize === 'function') {
+        updatePlayerSize();
     }
 });
 
