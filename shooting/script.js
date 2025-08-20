@@ -196,9 +196,13 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-// Event Listeners for touch input (개선된 터치 오프셋)
-function handleTouch(e) {
-    if (e.touches) {
+// 터치 드래그 관련 변수
+let isDragging = false;
+let dragOffset = { x: 0, y: 0 };
+
+// Event Listeners for touch input (드래그 방식으로 개선)
+function handleTouchStart(e) {
+    if (e.touches && e.touches.length > 0) {
         const rect = canvas.getBoundingClientRect();
         const scaleX = canvas.width / rect.width;
         const scaleY = canvas.height / rect.height;
@@ -207,24 +211,54 @@ function handleTouch(e) {
         const touchX = (e.touches[0].clientX - rect.left) * scaleX;
         const touchY = (e.touches[0].clientY - rect.top) * scaleY;
         
-        // 화면 크기에 비례한 오프셋 계산
-        const touchOffsetY = canvas.height * 0.15; // 화면 높이의 15%
-        const touchOffsetX = canvas.width * 0.08;  // 화면 너비의 8%
+        // 플레이어와 터치 위치의 거리 확인 (드래그 시작 여부 결정)
+        const dx = touchX - player.x;
+        const dy = touchY - player.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
         
-        // 오프셋 적용 - 비행기를 손가락보다 위쪽, 왼쪽에 배치
-        player.x = Math.max(0, Math.min(canvas.width - player.width, touchX - touchOffsetX));
-        player.y = Math.max(0, Math.min(canvas.height - player.height, touchY - touchOffsetY));
+        // 터치 위치가 플레이어 근처거나 게임 중이면 드래그 시작
+        if (distance < 100 || gameStarted) {
+            isDragging = true;
+            // 오프셋 저장 - 손가락이 비행기를 가리지 않도록 위쪽으로 조정
+            dragOffset.x = player.x - touchX;
+            dragOffset.y = player.y - touchY + (canvas.height * 0.08); // 비행기를 손가락보다 위에 표시
+        }
         
         e.preventDefault();
     }
 }
 
-canvas.addEventListener('touchstart', handleTouch);
-canvas.addEventListener('touchmove', handleTouch);
+function handleTouchMove(e) {
+    if (e.touches && e.touches.length > 0 && isDragging) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        // 터치 좌표를 캔버스 좌표로 변환
+        const touchX = (e.touches[0].clientX - rect.left) * scaleX;
+        const touchY = (e.touches[0].clientY - rect.top) * scaleY;
+        
+        // 드래그 오프셋 적용하여 플레이어 위치 업데이트
+        player.x = Math.max(player.width/2, Math.min(canvas.width - player.width/2, touchX + dragOffset.x));
+        player.y = Math.max(player.height/2, Math.min(canvas.height - player.height/2, touchY + dragOffset.y));
+        
+        e.preventDefault();
+    }
+}
+
+function handleTouchEnd(e) {
+    // 손가락을 떼면 드래그 종료 (비행기는 현재 위치에 유지)
+    isDragging = false;
+    e.preventDefault();
+}
+
+canvas.addEventListener('touchstart', handleTouchStart);
+canvas.addEventListener('touchmove', handleTouchMove);
+canvas.addEventListener('touchend', handleTouchEnd);
+canvas.addEventListener('touchcancel', handleTouchEnd);
 
 // 클릭 이벤트 처리
 canvas.addEventListener('click', handleClick);
-canvas.addEventListener('touchstart', handleClick);
 
 function handleClick(e) {
     if (e.type === 'touchstart') {
