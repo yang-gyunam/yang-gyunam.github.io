@@ -79,13 +79,28 @@ function setupCanvas() {
     const { isMobile, screenWidth, screenHeight } = detectDevice();
     
     if (isMobile) {
-        canvas.width = Math.min(screenWidth, 800);
-        canvas.height = Math.min(screenHeight * 0.6, 400);
-        canvas.style.width = '100vw';
-        canvas.style.height = '60vh';
+        // 모바일: 캔버스 실제 크기는 고정하고 CSS로 스케일링
+        canvas.width = 800;
+        canvas.height = 400;
+        
+        // CSS로 화면에 맞게 스케일링
+        const maxWidth = screenWidth * 0.95;
+        const maxHeight = screenHeight * 0.7; // 70% 사용
+        
+        // 비율 유지하면서 최대 크기에 맞추기
+        const scale = Math.min(maxWidth / 800, maxHeight / 400);
+        const displayWidth = 800 * scale;
+        const displayHeight = 400 * scale;
+        
+        canvas.style.width = displayWidth + 'px';
+        canvas.style.height = displayHeight + 'px';
+        canvas.style.maxWidth = '95vw';
+        canvas.style.maxHeight = '70vh';
     } else {
         canvas.width = 800;
         canvas.height = 400;
+        canvas.style.width = '800px';
+        canvas.style.height = '400px';
     }
     
     return { isMobile };

@@ -211,17 +211,35 @@ function handleTouchStart(e) {
         const touchX = (e.touches[0].clientX - rect.left) * scaleX;
         const touchY = (e.touches[0].clientY - rect.top) * scaleY;
         
-        // 플레이어와 터치 위치의 거리 확인 (드래그 시작 여부 결정)
-        const dx = touchX - player.x;
-        const dy = touchY - player.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        // 게임이 시작되지 않았다면 게임 시작
+        if (!gameStarted && !gameOver) {
+            gameStarted = true;
+            startButtonClicked = true;
+            e.preventDefault();
+            return;
+        }
         
-        // 터치 위치가 플레이어 근처거나 게임 중이면 드래그 시작
-        if (distance < 100 || gameStarted) {
-            isDragging = true;
-            // 오프셋 저장 - 손가락이 비행기를 가리지 않도록 위쪽으로 조정
-            dragOffset.x = player.x - touchX;
-            dragOffset.y = player.y - touchY + (canvas.height * 0.08); // 비행기를 손가락보다 위에 표시
+        // 게임 오버 상태에서 버튼 클릭 처리
+        if (gameOver) {
+            handleClick(e);
+            e.preventDefault();
+            return;
+        }
+        
+        // 게임 중 플레이어 드래그 시작
+        if (gameStarted && !gameOver) {
+            // 플레이어와 터치 위치의 거리 확인 (드래그 시작 여부 결정)
+            const dx = touchX - player.x;
+            const dy = touchY - player.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            // 터치 위치가 플레이어 근처거나 게임 중이면 드래그 시작
+            if (distance < 100 || gameStarted) {
+                isDragging = true;
+                // 오프셋 저장 - 손가락이 비행기를 가리지 않도록 위쪽으로 조정
+                dragOffset.x = player.x - touchX;
+                dragOffset.y = player.y - touchY + (canvas.height * 0.08); // 비행기를 손가락보다 위에 표시
+            }
         }
         
         e.preventDefault();
@@ -252,19 +270,15 @@ function handleTouchEnd(e) {
     e.preventDefault();
 }
 
-canvas.addEventListener('touchstart', handleTouchStart);
-canvas.addEventListener('touchmove', handleTouchMove);
-canvas.addEventListener('touchend', handleTouchEnd);
-canvas.addEventListener('touchcancel', handleTouchEnd);
+canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+canvas.addEventListener('touchcancel', handleTouchEnd, { passive: false });
 
 // 클릭 이벤트 처리
 canvas.addEventListener('click', handleClick);
 
 function handleClick(e) {
-    if (e.type === 'touchstart') {
-        e.preventDefault();
-    }
-    
     if (!gameStarted && !gameOver) {
         // 간단하게 화면의 어디든 클릭하면 게임 시작
         gameStarted = true;
@@ -274,7 +288,7 @@ function handleClick(e) {
         const rect = canvas.getBoundingClientRect();
         let clientX, clientY;
         
-        if (e.type === 'touchstart') {
+        if (e.touches && e.touches.length > 0) {
             clientX = e.touches[0].clientX;
             clientY = e.touches[0].clientY;
         } else {

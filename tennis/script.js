@@ -1042,6 +1042,10 @@ function resizeCanvas() {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     
+    // 이전 캔버스 크기와 비율 저장
+    const prevWidth = canvas.width || 800;
+    const prevHeight = canvas.height || 600;
+    
     if (isMobile) {
         // 모바일: 세로 화면에서 세로 테니스로 플레이 (위아래 패들)
         if (viewportHeight > viewportWidth) {
@@ -1049,21 +1053,88 @@ function resizeCanvas() {
             canvas.width = Math.min(viewportWidth * 0.95, 400);
             canvas.height = Math.min(viewportHeight * 0.9, 700);
             
-            // 패들을 위아래로 배치 (세로 테니스)
-            player.x = (canvas.width - PADDLE_HEIGHT) / 2; // 중앙 정렬
-            player.y = canvas.height - PADDLE_WIDTH - 20; // 아래쪽
-            player.width = PADDLE_HEIGHT; // 가로가 더 길게
-            player.height = PADDLE_WIDTH; // 세로가 짧게
-            
-            com.x = (canvas.width - PADDLE_HEIGHT) / 2; // 중앙 정렬
-            com.y = 20; // 위쪽
-            com.width = PADDLE_HEIGHT; // 가로가 더 길게
-            com.height = PADDLE_WIDTH; // 세로가 짧게
+            // 게임이 진행 중이 아닐 때만 위치 초기화
+            if (!gameStarted || gameOver) {
+                // 패들을 위아래로 배치 (세로 테니스)
+                player.x = (canvas.width - PADDLE_HEIGHT) / 2; // 중앙 정렬
+                player.y = canvas.height - PADDLE_WIDTH - 20; // 아래쪽
+                player.width = PADDLE_HEIGHT; // 가로가 더 길게
+                player.height = PADDLE_WIDTH; // 세로가 짧게
+                
+                com.x = (canvas.width - PADDLE_HEIGHT) / 2; // 중앙 정렬
+                com.y = 20; // 위쪽
+                com.width = PADDLE_HEIGHT; // 가로가 더 길게
+                com.height = PADDLE_WIDTH; // 세로가 짧게
+                
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height / 2;
+            } else {
+                // 게임 진행 중: 비율에 맞게 위치 조정
+                const xRatio = canvas.width / prevWidth;
+                const yRatio = canvas.height / prevHeight;
+                
+                player.x = player.x * xRatio;
+                player.y = player.y * yRatio;
+                com.x = com.x * xRatio;
+                com.y = com.y * yRatio;
+                ball.x = ball.x * xRatio;
+                ball.y = ball.y * yRatio;
+            }
         } else {
             // 가로 모드: 기존 좌우 패들 방식 유지
             canvas.width = Math.min(viewportWidth * 0.9, 600);
             canvas.height = Math.min(viewportHeight * 0.9, 400);
             
+            // 게임이 진행 중이 아닐 때만 위치 초기화
+            if (!gameStarted || gameOver) {
+                // 패들을 좌우로 배치
+                player.x = 10;
+                player.y = (canvas.height - PADDLE_HEIGHT) / 2;
+                player.width = PADDLE_WIDTH;
+                player.height = PADDLE_HEIGHT;
+                
+                com.x = canvas.width - PADDLE_WIDTH - 10;
+                com.y = (canvas.height - PADDLE_HEIGHT) / 2;
+                com.width = PADDLE_WIDTH;
+                com.height = PADDLE_HEIGHT;
+                
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height / 2;
+            } else {
+                // 게임 진행 중: 비율에 맞게 위치 조정
+                const xRatio = canvas.width / prevWidth;
+                const yRatio = canvas.height / prevHeight;
+                
+                player.x = player.x * xRatio;
+                player.y = player.y * yRatio;
+                com.x = com.x * xRatio;
+                com.y = com.y * yRatio;
+                ball.x = ball.x * xRatio;
+                ball.y = ball.y * yRatio;
+            }
+        }
+        
+        // CSS 크기 설정
+        canvas.style.width = canvas.width + 'px';
+        canvas.style.height = canvas.height + 'px';
+        
+        // 모바일 스타일 적용 (기존 CSS와 충돌하지 않도록 최소한만 적용)
+        if (!document.body.dataset.styleApplied) {
+            document.body.style.margin = '0';
+            document.body.style.padding = '5px';
+            document.body.dataset.styleApplied = 'true';
+        }
+        canvas.style.maxWidth = '100vw';
+        canvas.style.maxHeight = '100vh';
+    } else {
+        // 데스크톱: 고정 크기 유지 (좌우 패들)
+        canvas.width = 800;
+        canvas.height = 600;
+        canvas.style.width = '800px';
+        canvas.style.height = '600px';
+        
+        // 게임이 진행 중이 아닐 때만 위치 초기화
+        if (!gameStarted || gameOver) {
             // 패들을 좌우로 배치
             player.x = 10;
             player.y = (canvas.height - PADDLE_HEIGHT) / 2;
@@ -1074,46 +1145,21 @@ function resizeCanvas() {
             com.y = (canvas.height - PADDLE_HEIGHT) / 2;
             com.width = PADDLE_WIDTH;
             com.height = PADDLE_HEIGHT;
+            
+            ball.x = canvas.width / 2;
+            ball.y = canvas.height / 2;
+        } else {
+            // 게임 진행 중: 비율에 맞게 위치 조정
+            const xRatio = canvas.width / prevWidth;
+            const yRatio = canvas.height / prevHeight;
+            
+            player.x = player.x * xRatio;
+            player.y = player.y * yRatio;
+            com.x = com.x * xRatio;
+            com.y = com.y * yRatio;
+            ball.x = ball.x * xRatio;
+            ball.y = ball.y * yRatio;
         }
-        
-        // CSS 크기 설정
-        canvas.style.width = canvas.width + 'px';
-        canvas.style.height = canvas.height + 'px';
-        
-        // 공 위치 초기화
-        ball.x = canvas.width / 2;
-        ball.y = canvas.height / 2;
-        
-        // 모바일 스타일 적용
-        document.body.style.margin = '0';
-        document.body.style.padding = '5px';
-        document.body.style.display = 'flex';
-        document.body.style.justifyContent = 'center';
-        document.body.style.alignItems = 'center';
-        document.body.style.minHeight = '100vh';
-        document.body.style.backgroundColor = '#0f1419';
-        canvas.style.maxWidth = '100vw';
-        canvas.style.maxHeight = '100vh';
-    } else {
-        // 데스크톱: 고정 크기 유지 (좌우 패들)
-        canvas.width = 800;
-        canvas.height = 600;
-        canvas.style.width = '800px';
-        canvas.style.height = '600px';
-        
-        // 패들을 좌우로 배치
-        player.x = 10;
-        player.y = (canvas.height - PADDLE_HEIGHT) / 2;
-        player.width = PADDLE_WIDTH;
-        player.height = PADDLE_HEIGHT;
-        
-        com.x = canvas.width - PADDLE_WIDTH - 10;
-        com.y = (canvas.height - PADDLE_HEIGHT) / 2;
-        com.width = PADDLE_WIDTH;
-        com.height = PADDLE_HEIGHT;
-        
-        ball.x = canvas.width / 2;
-        ball.y = canvas.height / 2;
     }
 }
 

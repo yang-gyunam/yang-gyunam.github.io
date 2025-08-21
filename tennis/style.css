@@ -67,6 +67,8 @@ canvas {
     max-height: 100vh;
     display: block;
     touch-action: none;
+    position: relative;
+    z-index: 1;
 }
 
 /* 모바일 최적화 */
