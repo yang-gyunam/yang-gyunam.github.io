@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURE GLOW - 순수한 아름다움의 시작</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <span class="brand-icon">✨</span>
+                <span class="brand-text">PURE GLOW</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-item">Home</a></li>
+                <li><a href="#collection" class="nav-item">Collection</a></li>
+                <li><a href="#story" class="nav-item">Our Story</a></li>
+                <li><a href="#contact" class="nav-item">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-btn">🔍</button>
+                <button class="cart-btn">🛒 <span class="cart-count">0</span></button>
+            </div>
+            <div class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="hero-overlay"></div>
+        </div>
+        <canvas id="particle-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Pure Beauty</span>
+                    <span class="title-line">Natural Glow</span>
+                </h1>
+                <p class="hero-description">자연에서 온 순수한 성분으로 만든 프리미엄 스킨케어</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">컬렉션 보기</button>
+                    <button class="btn btn-secondary">브랜드 스토리</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-product">
+                    <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="메인 제품">
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <h3>100% Natural</h3>
+                    <p>자연에서 추출한 순수 성분만을 사용합니다</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Science Backed</h3>
+                    <p>과학적으로 검증된 효과적인 포뮬러</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Eco Friendly</h3>
+                    <p>지속가능한 환경을 위한 친환경 패키징</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Cruelty Free</h3>
+                    <p>동물실험을 하지 않는 윤리적 브랜드</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="collection">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Collection</h2>
+                <p class="section-subtitle">자연의 힘으로 완성된 프리미엄 스킨케어 라인</p>
+            </div>
+            
+            <div class="collection-tabs">
+                <button class="tab-btn active" data-category="all">All Products</button>
+                <button class="tab-btn" data-category="skincare">Skincare</button>
+                <button class="tab-btn" data-category="makeup">Makeup</button>
+                <button class="tab-btn" data-category="body">Body Care</button>
+            </div>
+
+            <div class="products-container">
+                <div class="product-item" data-category="skincare">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="비타민 C 세럼">
+                        <div class="product-overlay">
+                            <button class="quick-view">Quick View</button>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vitamin C Brightening Serum</h3>
+                        <p class="product-desc">피부 톤 개선과 브라이트닝</p>
+                        <div class="product-price">
+                            <span class="price">₩85,000</span>
+                            <span class="original-price">₩95,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span class="rating-count">(124)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="skincare">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="하이드레이팅 크림">
+                        <div class="product-overlay">
+                            <button class="quick-view">Quick View</button>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Hydrating Face Cream</h3>
+                        <p class="product-desc">24시간 깊은 수분 공급</p>
+                        <div class="product-price">
+                            <span class="price">₩75,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span class="rating-count">(89)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="makeup">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="글로우 파운데이션">
+                        <div class="product-overlay">
+                            <button class="quick-view">Quick View</button>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Natural Glow Foundation</h3>
+                        <p class="product-desc">자연스러운 윤기와 커버력</p>
+                        <div class="product-price">
+                            <span class="price">₩65,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★☆</div>
+                            <span class="rating-count">(67)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="body">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="바디 로션">
+                        <div class="product-overlay">
+                            <button class="quick-view">Quick View</button>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nourishing Body Lotion</h3>
+                        <p class="product-desc">부드럽고 촉촉한 바디 케어</p>
+                        <div class="product-price">
+                            <span class="price">₩45,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span class="rating-count">(156)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="skincare">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1585652757141-4d3ffd4c2b42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="클렌징 오일">
+                        <div class="product-overlay">
+                            <button class="quick-view">Quick View</button>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Gentle Cleansing Oil</h3>
+                        <p class="product-desc">순한 딥클렌징과 메이크업 제거</p>
+                        <div class="product-price">
+                            <span class="price">₦55,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span class="rating-count">(203)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-item" data-category="makeup">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="립 틴트">
+                        <div class="product-overlay">
+                            <button class="quick-view">Quick View</button>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Natural Lip Tint</h3>
+                        <p class="product-desc">자연스러운 입술 컬러</p>
+                        <div class="product-price">
+                            <span class="price">₩35,000</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★☆</div>
+                            <span class="rating-count">(91)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story">
+        <div class="container">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2 class="story-title">Our Story</h2>
+                    <p class="story-description">
+                        PURE GLOW는 자연의 순수함을 믿습니다. 
+                        우리는 지구상에서 가장 순수하고 효과적인 천연 성분들을 찾아 
+                        현대 과학 기술과 결합하여 당신의 피부에 최고의 케어를 제공합니다.
+                    </p>
+                    <div class="story-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Natural Ingredients</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Years of Research</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label">Happy Customers</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Learn More</button>
+                </div>
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="브랜드 스토리">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Stay in the Glow</h2>
+                <p class="newsletter-desc">최신 제품 소식과 뷰티 팁을 가장 먼저 받아보세요</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="이메일 주소를 입력하세요" class="newsletter-input">
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+                <p class="newsletter-privacy">개인정보 보호정책에 따라 안전하게 관리됩니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <span class="brand-icon">✨</span>
+                        <span class="brand-text">PURE GLOW</span>
+                    </div>
+                    <p class="footer-desc">자연의 순수함으로 완성되는 아름다움</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📺</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Skincare</a></li>
+                        <li><a href="#">Makeup</a></li>
+                        <li><a href="#">Body Care</a></li>
+                        <li><a href="#">Gift Sets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Customer Service</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 PURE GLOW. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
