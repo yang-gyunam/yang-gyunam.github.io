@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yang Gyunam</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #4a525a;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 20px;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #4a525a;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .lang-toggle:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-1px);
+        }
+
+        .lang-toggle span {
+            font-weight: 500;
+        }
+
+        .lang-toggle .lang-ko {
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .lang-toggle .lang-en {
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .lang-toggle.ko .lang-ko {
+            background: #5694cb;
+            color: white;
+        }
+
+        .lang-toggle.en .lang-en {
+            background: #5694cb;
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            padding-right: 50px;
+            flex-shrink: 0;
+        }
+
+        .site-header {
+            margin-bottom: 30px;
+        }
+
+        .site-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a525a;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .site-tagline {
+            font-size: 12px;
+            color: #8b92a0;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        .navigation {
+            margin-top: 30px;
+        }
+
+        .navigation ul {
+            list-style: none;
+        }
+
+        .navigation li {
+            margin-bottom: 8px;
+        }
+
+        .navigation a {
+            color: #4a525a;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            max-width: 700px;
+        }
+
+        /* Entry */
+        .entry {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .entry:last-child {
+            border-bottom: none;
+        }
+
+        .entry-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .entry-title a {
+            color: #4a525a;
+            text-decoration: none;
+        }
+
+        .entry-title a:hover {
+            text-decoration: underline;
+        }
+
+        .entry-meta {
+            font-size: 12px;
+            color: #8b92a0;
+            margin-bottom: 10px;
+        }
+
+        .entry-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4a525a;
+        }
+
+        .entry-content p {
+            margin-bottom: 12px;
+        }
+
+        .entry-content a {
+            color: #5694cb;
+            text-decoration: none;
+        }
+
+        .entry-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Permalink */
+        .permalink {
+            color: #8b92a0;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 8px;
+        }
+
+        .permalink:hover {
+            color: #4a525a;
+        }
+
+        /* Skills List */
+        .skills-inline {
+            display: inline;
+            color: #8b92a0;
+        }
+
+        /* Projects */
+        .project-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .project-list li {
+            margin-bottom: 25px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .project-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #8b92a0;
+        }
+
+        .project-name {
+            font-weight: bold;
+            color: #4a525a;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #8b92a0;
+            margin-top: 3px;
+        }
+
+        .project-image {
+            margin-top: 10px;
+            max-width: 100%;
+            border: 1px solid #e5e5e5;
+            border-radius: 3px;
+        }
+
+        /* Game Links */
+        .game-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .game-list li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .game-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #8b92a0;
+        }
+
+        .game-list a {
+            color: #5694cb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .game-list a:hover {
+            text-decoration: underline;
+        }
+
+        .game-desc {
+            color: #8b92a0;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
+            font-size: 12px;
+            color: #8b92a0;
+        }
+
+        footer a {
+            color: #8b92a0;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 30px;
+                border-bottom: 1px solid #e5e5e5;
+                padding-bottom: 20px;
+            }
+
+            .navigation {
+                margin-top: 20px;
+            }
+
+            .navigation ul {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .lang-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 4px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle ko" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- About Entry -->
+            <article class="entry" id="about">
+                <h2 class="entry-title">
+                    About
+                    <a href="#about" class="permalink">★</a>
+                </h2>
+                <div class="entry-meta">December 2024</div>
+                <div class="entry-content">
+                    <p>23년 경력의 풀스택 개발자입니다. 사용자 중심의 솔루션 개발과 안정적인 시스템 구축에 집중하며, 프론트엔드부터 백엔드까지 다양한 기술 스택을 활용합니다.</p>
+                    <p>복잡한 문제를 단순하고 효율적으로 해결하는 것을 추구하며, 코드의 가독성과 유지보수성을 중요하게 생각합니다. 새로운 기술을 학습하고 적용하는 것을 즐기며, 팀과의 협업을 통해 더 나은 결과물을 만들어내는 것을 목표로 합니다.</p>
+                </div>
+            </article>
+
+            <!-- Experience Entry -->
+            <article class="entry" id="experience">
+                <h2 class="entry-title">
+                    Technical Skills
+                    <a href="#experience" class="permalink">★</a>
+                </h2>
+                <div class="entry-meta">Core Competencies</div>
+                <div class="entry-content">
+                    <p><strong>Frontend:</strong> <span class="skills-inline">React, TypeScript, Svelte.js, ExtJs, HTML5, CSS3, JavaScript ES6+, ExtJS</span></p>
+                    <p><strong>Backend:</strong> <span class="skills-inline">ASP.NET Core, JSP, Node.js, RESTful API</span></p>
+                    <p><strong>Database:</strong> <span class="skills-inline">MS-SQL, PostgreSQL, ORACLE</span></p>
+                    <p><strong>Desktop:</strong> <span class="skills-inline">WinForms, WPF, UWP</span></p>
+                </div>
+            </article>
+
+            <!-- Projects Entry -->
+            <article class="entry" id="projects">
+                <h2 class="entry-title">
+                    Featured Projects
+                    <a href="#projects" class="permalink">★</a>
+                </h2>
+                <div class="entry-meta">Selected Work</div>
+                <div class="entry-content">
+                    <ul class="project-list">
+                        <li>
+                            <div class="project-name">MD Editor</div>
+                            <div class="project-description">마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다. <a href="https://github.com/yang-gyunam/md-editor" target="_blank">GitHub 저장소 →</a></div>
+                        </li>
+                        <li>
+                            <div class="project-name">AppShell Pro</div>
+                            <div class="project-description">Svelte 5 기반의 모던 웹 애플리케이션 프레임워크. 모듈식 컴포넌트 구조와 테마 커스터마이징을 지원하며 최적화된 성능을 제공합니다.</div>
+                            <img src="assets/gnyang.appShell.250824_ex2.gif" alt="AppShell Demo" class="project-image">
+                        </li>
+                        <li>
+                            <div class="project-name">AppShell</div>
+                            <div class="project-description">빠른 프로토타이핑을 위한 경량 프레임워크. 최소한의 설정으로 즉시 개발을 시작할 수 있는 템플릿을 제공합니다.</div>
+                            <img src="assets/gnyang.appSehll.basic.250825_ex1..gif" alt="AppShell.Basic Demo" class="project-image">
+                        </li>
+                        <!-- <li>
+                            <div class="project-name">Enterprise Resource Planning System</div>
+                            <div class="project-description">대규모 기업용 ERP 시스템 개발. ASP.NET과 MSSQL을 활용한 확장 가능한 아키텍처 설계 및 구현.</div>
+                        </li>
+                        <li>
+                            <div class="project-name">Real-time Dashboard Platform</div>
+                            <div class="project-description">WebSocket을 활용한 실시간 데이터 시각화 플랫폼. D3.js와 React를 이용한 인터랙티브 차트 구현.</div>
+                        </li>
+                        <li>
+                            <div class="project-name">Mobile-First E-commerce Solution</div>
+                            <div class="project-description">반응형 웹 디자인과 PWA 기술을 적용한 모바일 최적화 쇼핑몰 플랫폼.</div>
+                        </li> -->
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Games Entry -->
+            <article class="entry" id="games">
+                <h2 class="entry-title">
+                    Web Games Collection
+                    <a href="#games" class="permalink">★</a>
+                </h2>
+                <div class="entry-meta">Interactive Projects</div>
+                <div class="entry-content">
+                    <p>웹 기술로 구현한 인터랙티브 게임 모음입니다. HTML5 Canvas와 JavaScript를 활용하여 제작했습니다.</p>
+                    <ul class="game-list">
+                        <li>
+                            <a href="flappy/index.html">플래피 버드</a>
+                            <span class="game-desc"> — 파이프를 피해 날아가는 아케이드 게임</span>
+                        </li>
+                        <li>
+                            <a href="memory/index.html">기억력 게임</a>
+                            <span class="game-desc"> — 카드 매칭 메모리 트레이닝</span>
+                        </li>
+                        <li>
+                            <a href="shooting/index.html">스페이스 슈터</a>
+                            <span class="game-desc"> — 우주 슈팅 액션 게임</span>
+                        </li>
+                        <li>
+                            <a href="tennis/index.html">테니스</a>
+                            <span class="game-desc"> — 클래식 탁구 게임</span>
+                        </li>
+                        <li>
+                            <a href="dino/index.html">다이노 점프</a>
+                            <span class="game-desc"> — 엔들리스 러닝 게임</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Contact Entry -->
+            <article class="entry" id="contact">
+                <h2 class="entry-title">
+                    Contact
+                    <a href="#contact" class="permalink">★</a>
+                </h2>
+                <div class="entry-meta">Get in Touch</div>
+                <div class="entry-content">
+                    <p>프로젝트 협업이나 문의사항이 있으시면 연락 주시기 바랍니다.</p>
+                    <p>Email: <a href="mailto:ten@twoloom.com">ten@twoloom.com</a></p>
+                    <p>GitHub: <a href="https://github.com/yang-gyunam" target="_blank">github.com/yang-gyunam</a></p>
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Translation data
+        const translations = {
+            ko: {
+                siteTitle: 'Yang Gyunam',
+                siteTagline: 'Software Engineer',
+                nav: {
+                    about: 'About',
+                    experience: 'Experience',
+                    projects: 'Projects',
+                    games: 'Games',
+                    contact: 'Contact'
+                },
+                about: {
+                    title: 'About',
+                    date: 'December 2024',
+                    content1: '23년 경력의 풀스택 개발자입니다. 사용자 중심의 솔루션 개발과 안정적인 시스템 구축에 집중하며, 프론트엔드부터 백엔드까지 다양한 기술 스택을 활용합니다.',
+                    content2: '복잡한 문제를 단순하고 효율적으로 해결하는 것을 추구하며, 코드의 가독성과 유지보수성을 중요하게 생각합니다. 새로운 기술을 학습하고 적용하는 것을 즐기며, 팀과의 협업을 통해 더 나은 결과물을 만들어내는 것을 목표로 합니다.'
+                },
+                experience: {
+                    title: 'Technical Skills',
+                    subtitle: 'Core Competencies',
+                    frontend: 'Frontend:',
+                    frontendSkills: 'React, TypeScript, Svelte.js, ExtJs, HTML5, CSS3, JavaScript ES6+, ExtJS',
+                    backend: 'Backend:',
+                    backendSkills: 'ASP.NET Core, JSP, Node.js, RESTful API',
+                    database: 'Database:',
+                    databaseSkills: 'MS-SQL, PostgreSQL, ORACLE',
+                    desktop: 'Desktop:',
+                    desktopSkills: 'WinForms, WPF, UWP'
+                },
+                projects: {
+                    title: 'Featured Projects',
+                    subtitle: 'Selected Work',
+                    mdEditor: {
+                        name: 'MD Editor',
+                        desc: '마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다.',
+                        link: 'GitHub 저장소 →'
+                    },
+                    appShellPro: {
+                        name: 'AppShell Pro',
+                        desc: 'Svelte 5 기반의 모던 웹 애플리케이션 프레임워크. 모듈식 컴포넌트 구조와 테마 커스터마이징을 지원하며 최적화된 성능을 제공합니다.'
+                    },
+                    appShell: {
+                        name: 'AppShell',
+                        desc: '빠른 프로토타이핑을 위한 경량 프레임워크. 최소한의 설정으로 즉시 개발을 시작할 수 있는 템플릿을 제공합니다.'
+                    }
+                },
+                games: {
+                    title: 'Web Games Collection',
+                    subtitle: 'Interactive Projects',
+                    intro: '웹 기술로 구현한 인터랙티브 게임 모음입니다. HTML5 Canvas와 JavaScript를 활용하여 제작했습니다.',
+                    flappy: '플래피 버드',
+                    flappyDesc: ' — 파이프를 피해 날아가는 아케이드 게임',
+                    memory: '기억력 게임',
+                    memoryDesc: ' — 카드 매칭 메모리 트레이닝',
+                    shooter: '스페이스 슈터',
+                    shooterDesc: ' — 우주 슈팅 액션 게임',
+                    tennis: '테니스',
+                    tennisDesc: ' — 클래식 탁구 게임',
+                    dino: '다이노 점프',
+                    dinoDesc: ' — 엔들리스 러닝 게임'
+                },
+                contact: {
+                    title: 'Contact',
+                    subtitle: 'Get in Touch',
+                    intro: '프로젝트 협업이나 문의사항이 있으시면 연락 주시기 바랍니다.',
+                    email: 'Email:',
+                    github: 'GitHub:'
+                },
+                footer: {
+                    copyright: 'Copyright © 2025 Yang Gyunam'
+                }
+            },
+            en: {
+                siteTitle: 'Yang Gyunam',
+                siteTagline: 'Software Engineer',
+                nav: {
+                    about: 'About',
+                    experience: 'Experience',
+                    projects: 'Projects',
+                    games: 'Games',
+                    contact: 'Contact'
+                },
+                about: {
+                    title: 'About',
+                    date: 'December 2024',
+                    content1: 'Full-stack developer with 23 years of experience. I focus on user-centric solution development and building stable systems, utilizing various technology stacks from frontend to backend.',
+                    content2: 'I pursue solving complex problems simply and efficiently, and value code readability and maintainability. I enjoy learning and applying new technologies, and aim to create better results through team collaboration.'
+                },
+                experience: {
+                    title: 'Technical Skills',
+                    subtitle: 'Core Competencies',
+                    frontend: 'Frontend:',
+                    frontendSkills: 'React, TypeScript, Svelte.js, ExtJs, HTML5, CSS3, JavaScript ES6+, ExtJS',
+                    backend: 'Backend:',
+                    backendSkills: 'ASP.NET Core, JSP, Node.js, RESTful API',
+                    database: 'Database:',
+                    databaseSkills: 'MS-SQL, PostgreSQL, ORACLE',
+                    desktop: 'Desktop:',
+                    desktopSkills: 'WinForms, WPF, UWP'
+                },
+                projects: {
+                    title: 'Featured Projects',
+                    subtitle: 'Selected Work',
+                    mdEditor: {
+                        name: 'MD Editor',
+                        desc: 'Open source markdown editor project. Svelte5-based markdown editor with real-time preview.',
+                        link: 'GitHub Repository →'
+                    },
+                    appShellPro: {
+                        name: 'AppShell Pro',
+                        desc: 'Modern web application framework based on Svelte 5. Supports modular component structure and theme customization with optimized performance.'
+                    },
+                    appShell: {
+                        name: 'AppShell',
+                        desc: 'Lightweight framework for rapid prototyping. Provides templates for immediate development with minimal configuration.'
+                    }
+                },
+                games: {
+                    title: 'Web Games Collection',
+                    subtitle: 'Interactive Projects',
+                    intro: 'Collection of interactive games implemented with web technologies. Built using HTML5 Canvas and JavaScript.',
+                    flappy: 'Flappy Bird',
+                    flappyDesc: ' — Arcade game avoiding pipes',
+                    memory: 'Memory Game',
+                    memoryDesc: ' — Card matching memory training',
+                    shooter: 'Space Shooter',
+                    shooterDesc: ' — Space shooting action game',
+                    tennis: 'Tennis',
+                    tennisDesc: ' — Classic table tennis game',
+                    dino: 'Dino Jump',
+                    dinoDesc: ' — Endless running game'
+                },
+                contact: {
+                    title: 'Contact',
+                    subtitle: 'Get in Touch',
+                    intro: 'Please feel free to contact me for project collaboration or inquiries.',
+                    email: 'Email:',
+                    github: 'GitHub:'
+                },
+                footer: {
+                    copyright: 'Copyright © 2025 Yang Gyunam'
+                }
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'ko';
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLang);
+        });
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ko' ? 'en' : 'ko';
+            localStorage.setItem('language', currentLang);
+            setLanguage(currentLang);
+        }
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            
+            // Update lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update toggle button state
+            const toggle = document.querySelector('.lang-toggle');
+            toggle.classList.remove('ko', 'en');
+            toggle.classList.add(lang);
+
+            // Update site header
+            document.querySelector('.site-title').textContent = t.siteTitle;
+            document.querySelector('.site-tagline').textContent = t.siteTagline;
+
+            // Update navigation
+            const navLinks = document.querySelectorAll('.navigation a');
+            navLinks[0].textContent = t.nav.about;
+            navLinks[1].textContent = t.nav.experience;
+            navLinks[2].textContent = t.nav.projects;
+            navLinks[3].textContent = t.nav.games;
+            navLinks[4].textContent = t.nav.contact;
+
+            // Update About section
+            document.querySelector('#about .entry-title').innerHTML = t.about.title + '<a href="#about" class="permalink">★</a>';
+            document.querySelector('#about .entry-meta').textContent = t.about.date;
+            const aboutContent = document.querySelector('#about .entry-content');
+            aboutContent.innerHTML = `
+                <p>${t.about.content1}</p>
+                <p>${t.about.content2}</p>
+            `;
+
+            // Update Experience section
+            document.querySelector('#experience .entry-title').innerHTML = t.experience.title + '<a href="#experience" class="permalink">★</a>';
+            document.querySelector('#experience .entry-meta').textContent = t.experience.subtitle;
+            const experienceContent = document.querySelector('#experience .entry-content');
+            experienceContent.innerHTML = `
+                <p><strong>${t.experience.frontend}</strong> <span class="skills-inline">${t.experience.frontendSkills}</span></p>
+                <p><strong>${t.experience.backend}</strong> <span class="skills-inline">${t.experience.backendSkills}</span></p>
+                <p><strong>${t.experience.database}</strong> <span class="skills-inline">${t.experience.databaseSkills}</span></p>
+                <p><strong>${t.experience.desktop}</strong> <span class="skills-inline">${t.experience.desktopSkills}</span></p>
+            `;
+
+            // Update Projects section
+            document.querySelector('#projects .entry-title').innerHTML = t.projects.title + '<a href="#projects" class="permalink">★</a>';
+            document.querySelector('#projects .entry-meta').textContent = t.projects.subtitle;
+            const projectsContent = document.querySelector('#projects .entry-content');
+            projectsContent.innerHTML = `
+                <ul class="project-list">
+                    <li>
+                        <div class="project-name">${t.projects.mdEditor.name}</div>
+                        <div class="project-description">${t.projects.mdEditor.desc} <a href="https://github.com/yang-gyunam/md-editor" target="_blank">${t.projects.mdEditor.link}</a></div>
+                    </li>
+                    <li>
+                        <div class="project-name">${t.projects.appShellPro.name}</div>
+                        <div class="project-description">${t.projects.appShellPro.desc}</div>
+                        <img src="assets/gnyang.appShell.250824_ex2.gif" alt="AppShell Demo" class="project-image">
+                    </li>
+                    <li>
+                        <div class="project-name">${t.projects.appShell.name}</div>
+                        <div class="project-description">${t.projects.appShell.desc}</div>
+                        <img src="assets/gnyang.appSehll.basic.250825_ex1..gif" alt="AppShell.Basic Demo" class="project-image">
+                    </li>
+                </ul>
+            `;
+
+            // Update Games section
+            document.querySelector('#games .entry-title').innerHTML = t.games.title + '<a href="#games" class="permalink">★</a>';
+            document.querySelector('#games .entry-meta').textContent = t.games.subtitle;
+            const gamesContent = document.querySelector('#games .entry-content');
+            gamesContent.innerHTML = `
+                <p>${t.games.intro}</p>
+                <ul class="game-list">
+                    <li>
+                        <a href="flappy/index.html">${t.games.flappy}</a>
+                        <span class="game-desc">${t.games.flappyDesc}</span>
+                    </li>
+                    <li>
+                        <a href="memory/index.html">${t.games.memory}</a>
+                        <span class="game-desc">${t.games.memoryDesc}</span>
+                    </li>
+                    <li>
+                        <a href="shooting/index.html">${t.games.shooter}</a>
+                        <span class="game-desc">${t.games.shooterDesc}</span>
+                    </li>
+                    <li>
+                        <a href="tennis/index.html">${t.games.tennis}</a>
+                        <span class="game-desc">${t.games.tennisDesc}</span>
+                    </li>
+                    <li>
+                        <a href="dino/index.html">${t.games.dino}</a>
+                        <span class="game-desc">${t.games.dinoDesc}</span>
+                    </li>
+                </ul>
+            `;
+
+            // Update Contact section
+            document.querySelector('#contact .entry-title').innerHTML = t.contact.title + '<a href="#contact" class="permalink">★</a>';
+            document.querySelector('#contact .entry-meta').textContent = t.contact.subtitle;
+            const contactContent = document.querySelector('#contact .entry-content');
+            contactContent.innerHTML = `
+                <p>${t.contact.intro}</p>
+                <p>${t.contact.email} <a href="mailto:ten@twoloom.com">ten@twoloom.com</a></p>
+                <p>${t.contact.github} <a href="https://github.com/yang-gyunam" target="_blank">github.com/yang-gyunam</a></p>
+            `;
+
+            // Update Footer
+            document.querySelector('footer p').textContent = t.footer.copyright;
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

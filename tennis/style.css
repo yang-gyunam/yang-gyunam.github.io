@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    position: relative;
+}
+
+.main-button {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.main-button:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 12px 40px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.main-button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .main-button {
+        top: 15px;
+        right: 15px;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 40px;
+    }
+}
+
+canvas {
+    background-color: #111;
+    border: 2px solid #fff;
+    max-width: 100vw;
+    max-height: 100vh;
+    display: block;
+    touch-action: none;
+    position: relative;
+    z-index: 1;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    canvas {
+        border: 1px solid #fff;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    body {
+        padding: 5px;
+    }
+    
+    canvas {
+        border: 1px solid #fff;
+    }
+}
