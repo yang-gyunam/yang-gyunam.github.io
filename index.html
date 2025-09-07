@@ -400,6 +400,11 @@
                 <div class="entry-content">
                     <ul class="project-list">
                         <li>
+                            <div class="project-name">Lupin</div>
+                            <div class="project-description">지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다. <a href="https://github.com/yang-gyunam/lupin" target="_blank">GitHub 저장소 →</a></div>
+                            <img src="assets/gnyang.lupin.250907.png" alt="Lupin Demo" class="project-image">
+                        </li>
+                        <li>
                             <div class="project-name">MD Editor</div>
                             <div class="project-description">마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다. <a href="https://github.com/yang-gyunam/md-editor" target="_blank">GitHub 저장소 →</a></div>
                         </li>
@@ -517,6 +522,11 @@
                 projects: {
                     title: 'Featured Projects',
                     subtitle: 'Selected Work',
+                    lupin: {
+                        name: 'Lupin',
+                        desc: '지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다.',
+                        link: 'GitHub 저장소 →'
+                    },
                     mdEditor: {
                         name: 'MD Editor',
                         desc: '마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다.',
@@ -588,6 +598,11 @@
                 projects: {
                     title: 'Featured Projects',
                     subtitle: 'Selected Work',
+                    lupin: {
+                        name: 'Lupin',
+                        desc: 'Moves the mouse and types sentences at specified time intervals.',
+                        link: 'GitHub Repository →'
+                    },
                     mdEditor: {
                         name: 'MD Editor',
                         desc: 'Open source markdown editor project. Svelte5-based markdown editor with real-time preview.',
@@ -692,6 +707,11 @@
             const projectsContent = document.querySelector('#projects .entry-content');
             projectsContent.innerHTML = `
                 <ul class="project-list">
+                    <li>
+                        <div class="project-name">${t.projects.lupin.name}</div>
+                        <div class="project-description">${t.projects.lupin.desc} <a href="https://github.com/yang-gyunam/lupin" target="_blank">${t.projects.lupin.link}</a></div>
+                        <img src="assets/gnyang.lupin.250907.png" alt="Lupin Demo" class="project-image">
+                    </li>
                     <li>
                         <div class="project-name">${t.projects.mdEditor.name}</div>
                         <div class="project-description">${t.projects.mdEditor.desc} <a href="https://github.com/yang-gyunam/md-editor" target="_blank">${t.projects.mdEditor.link}</a></div>
