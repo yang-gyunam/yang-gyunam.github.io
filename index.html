@@ -412,6 +412,12 @@
                 <div class="entry-content">
                     <ul class="project-list">
                         <li>
+                            <div class="project-name">Speech To Text</div>
+                            <div class="project-description">음성을 텍스트로 변환하는 맥 앱 <a href="https://github.com/yang-gyunam/speech-to-text" target="_blank">GitHub 저장소 →</a></div>
+                            <img src="assets/gnyang.speechToText.20250923_1.png" alt="Speech To Text Demo 1" class="project-image">
+                            <img src="assets/gnyang.speechToText.20250923_2.png" alt="Speech To Text Demo 2" class="project-image">
+                        </li>
+                        <li>
                             <div class="project-name">Lupin</div>
                             <div class="project-description">지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다. <a href="https://github.com/yang-gyunam/lupin" target="_blank">GitHub 저장소 →</a></div>
                             <img src="assets/gnyang.lupin.250907.png" alt="Lupin Demo" class="project-image">
@@ -534,6 +540,11 @@
                 projects: {
                     title: 'Featured Projects',
                     subtitle: 'Selected Work',
+                    speechToText: {
+                        name: 'Speech To Text',
+                        desc: '음성을 텍스트로 변환하는 맥 앱',
+                        link: 'GitHub →'
+                    },
                     lupin: {
                         name: 'Lupin',
                         desc: '지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다.',
@@ -610,6 +621,11 @@
                 projects: {
                     title: 'Featured Projects',
                     subtitle: 'Selected Work',
+                    speechToText: {
+                        name: 'Speech To Text',
+                        desc: 'Mac app that converts speech to text',
+                        link: 'GitHub →'
+                    },
                     lupin: {
                         name: 'Lupin',
                         desc: 'Moves the mouse and types sentences at specified time intervals.',
@@ -719,6 +735,12 @@
             const projectsContent = document.querySelector('#projects .entry-content');
             projectsContent.innerHTML = `
                 <ul class="project-list">
+                    <li>
+                        <div class="project-name">${t.projects.speechToText.name}</div>
+                        <div class="project-description">${t.projects.speechToText.desc} <a href="https://github.com/yang-gyunam/speech-to-text" target="_blank">${t.projects.speechToText.link}</div>
+                        <img src="assets/gnyang.speechToText.20250923_1.png" alt="Speech To Text Demo 1" class="project-image">
+                        <img src="assets/gnyang.speechToText.20250923_2.png" alt="Speech To Text Demo 2" class="project-image">
+                    </li>
                     <li>
                         <div class="project-name">${t.projects.lupin.name}</div>
                         <div class="project-description">${t.projects.lupin.desc} <a href="https://github.com/yang-gyunam/lupin" target="_blank">${t.projects.lupin.link}</a></div>
