@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Yang Gyunam</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle en" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title">Projects</h1>
+                <div class="entry-meta">Featured Work</div>
+                <div id="projects-list" class="entry-content">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        async function loadProjects() {
+            const projects = await loadJSON('../data/projects.json');
+            const container = document.getElementById('projects-list');
+            const lang = currentLang;
+
+            container.innerHTML = '<ul class="post-list">' + projects.map(project => {
+                return `
+                    <li class="post-item">
+                        <h2 class="post-title">
+                            <a href="${project.id}.html">${project.title[lang]}</a>
+                        </h2>
+                        <div class="post-date">${formatDate(project.date, lang)}</div>
+                        <div class="post-description">${project.description[lang]}</div>
+                        ${project.tags ? `<div class="post-tags">${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+                    </li>
+                `;
+            }).join('') + '</ul>';
+        }
+
+        // Update content on language change
+        window.addEventListener('languageChanged', function(e) {
+            loadProjects();
+        });
+
+        // Initial load
+        loadProjects();
+    </script>
+</body>
+
+</html>

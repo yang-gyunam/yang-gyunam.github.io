@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech To Text - Yang Gyunam</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle en" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title project-title">Speech To Text</h1>
+                <div class="entry-meta project-date">September 23, 2025</div>
+                <div class="entry-content">
+                    <p class="project-description">동영상 파일의 음성을 텍스트로 변환하는 맥 앱입니다.</p>
+
+                    <p class="project-description-extra">OpenAI의 Whisper API를 로컬에서 실행하여 동영상 파일의 음성을 텍스트로 변환합니다. 완전한 오프라인 동작으로 인터넷 연결 없이 사용 가능하며, 파일이 외부로 유출될 걱정이 없습니다.</p>
+
+                    <p class="project-description-extra">간결한 UI로 파일을 선택하면 자동으로 변환이 시작되며, 변환된 텍스트를 클립보드로 복사하거나 파일로 저장할 수 있습니다. 강의 영상, 회의 녹화, 인터뷰 영상 등의 자막 제작이나 텍스트 추출에 안전하게 활용할 수 있는 생산성 도구입니다.</p>
+
+                    <div class="post-tags" style="margin: 15px 0;">
+                        <span class="tag">Swift</span>
+                        <span class="tag">macOS</span>
+                        <span class="tag">Speech Recognition</span>
+                    </div>
+
+                    <a href="https://github.com/yang-gyunam/speech-to-text" target="_blank" class="project-github">
+                        <span class="github-text">GitHub</span>
+                    </a>
+
+                    <img src="../assets/gnyang.speechToText.20250923_1.png" alt="Speech To Text Demo 1" class="project-image">
+                    <img src="../assets/gnyang.speechToText.20250923_2.png" alt="Speech To Text Demo 2" class="project-image">
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        const contentTranslations = {
+            ko: {
+                title: 'Speech To Text',
+                description: '동영상 파일의 음성을 텍스트로 변환하는 맥 앱입니다.',
+                extra1: 'OpenAI의 Whisper API를 로컬에서 실행하여 동영상 파일의 음성을 텍스트로 변환합니다. 완전한 오프라인 동작으로 인터넷 연결 없이 사용 가능하며, 파일이 외부로 유출될 걱정이 없습니다.',
+                extra2: '간결한 UI로 파일을 선택하면 자동으로 변환이 시작되며, 변환된 텍스트를 클립보드로 복사하거나 파일로 저장할 수 있습니다. 강의 영상, 회의 녹화, 인터뷰 영상 등의 자막 제작이나 텍스트 추출에 안전하게 활용할 수 있는 생산성 도구입니다.',
+                github: 'GitHub'
+            },
+            en: {
+                title: 'Speech To Text',
+                description: 'A Mac app that converts speech from video files to text.',
+                extra1: 'Runs OpenAI\'s Whisper API locally to convert audio from video files to text. Works completely offline without internet connection, ensuring your files never leave your device.',
+                extra2: 'Simply select a file through the clean UI to start automatic conversion, with options to copy the converted text to clipboard or save to files. A secure productivity tool for creating subtitles or extracting text from lecture videos, meeting recordings, interview footage, and more.',
+                github: 'GitHub'
+            }
+        };
+
+        window.addEventListener('languageChanged', function(e) {
+            const lang = e.detail.lang;
+            const t = contentTranslations[lang];
+
+            document.querySelector('.project-title').textContent = t.title;
+            document.querySelector('.project-description').textContent = t.description;
+            const extraElements = document.querySelectorAll('.project-description-extra');
+            if (extraElements.length >= 2) {
+                extraElements[0].textContent = t.extra1;
+                extraElements[1].textContent = t.extra2;
+            }
+            document.querySelector('.github-text').textContent = t.github;
+            document.querySelector('.project-date').textContent = formatDate('2025-09-23', lang);
+        });
+    </script>
+</body>
+
+</html>

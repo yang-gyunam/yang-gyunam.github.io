@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - Yang Gyunam</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle en" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title">Articles</h1>
+                <div class="entry-meta">Technical Writing & Thoughts</div>
+                <div id="articles-list" class="entry-content">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        async function loadArticles() {
+            const articles = await loadJSON('../data/articles.json');
+            const container = document.getElementById('articles-list');
+            const lang = currentLang;
+
+            if (articles.length === 0) {
+                container.innerHTML = `<p style="color: #8b92a0; font-style: italic;">${lang === 'ko' ? '아직 작성된 아티클이 없습니다.' : 'No articles published yet.'}</p>`;
+                return;
+            }
+
+            container.innerHTML = '<ul class="post-list">' + articles.map(article => {
+                return `
+                    <li class="post-item">
+                        <h2 class="post-title">
+                            <a href="${article.id}.html">${article.title[lang]}</a>
+                        </h2>
+                        <div class="post-date">${formatDate(article.date, lang)}</div>
+                        <div class="post-description">${article.description[lang]}</div>
+                        ${article.tags ? `<div class="post-tags">${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+                    </li>
+                `;
+            }).join('') + '</ul>';
+        }
+
+        // Update content on language change
+        window.addEventListener('languageChanged', function(e) {
+            loadArticles();
+        });
+
+        // Initial load
+        loadArticles();
+    </script>
+</body>
+
+</html>

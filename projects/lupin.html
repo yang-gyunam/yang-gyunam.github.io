@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lupin - Yang Gyunam</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle en" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title project-title">Lupin</h1>
+                <div class="entry-meta project-date">September 7, 2025</div>
+                <div class="entry-content">
+                    <p class="project-description">지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑하는 자동화 도구입니다.</p>
+
+                    <p class="project-description-extra">일정 시간마다 자동으로 마우스를 움직여 화면 보호기나 자리 비움 상태를 방지합니다. 설정한 텍스트를 주기적으로 입력하여 반복적인 타이핑 작업을 자동화할 수 있습니다.</p>
+
+                    <p class="project-description-extra">간단한 UI로 시간 간격과 동작을 쉽게 설정할 수 있으며, 필요시 즉시 시작하거나 중지할 수 있습니다.</p>
+
+                    <div class="post-tags" style="margin: 15px 0;">
+                        <span class="tag">Automation</span>
+                        <span class="tag">Productivity</span>
+                    </div>
+
+                    <a href="https://github.com/yang-gyunam/lupin" target="_blank" class="project-github">
+                        <span class="github-text">GitHub</span>
+                    </a>
+
+                    <img src="../assets/gnyang.lupin.250907.png" alt="Lupin Demo" class="project-image">
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        const contentTranslations = {
+            ko: {
+                title: 'Lupin',
+                description: '지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑하는 자동화 도구입니다.',
+                extra1: '일정 시간마다 자동으로 마우스를 움직여 화면 보호기나 자리 비움 상태를 방지합니다. 설정한 텍스트를 주기적으로 입력하여 반복적인 타이핑 작업을 자동화할 수 있습니다.',
+                extra2: '간단한 UI로 시간 간격과 동작을 쉽게 설정할 수 있으며, 필요시 즉시 시작하거나 중지할 수 있습니다.',
+                github: 'GitHub'
+            },
+            en: {
+                title: 'Lupin',
+                description: 'An automation tool that moves the mouse and types text at specified time intervals.',
+                extra1: 'Automatically moves the mouse at regular intervals to prevent screensaver or away status. Automates repetitive typing tasks by periodically entering configured text.',
+                extra2: 'Easy to configure time intervals and actions through a simple UI, with instant start and stop controls.',
+                github: 'GitHub'
+            }
+        };
+
+        window.addEventListener('languageChanged', function(e) {
+            const lang = e.detail.lang;
+            const t = contentTranslations[lang];
+
+            document.querySelector('.project-title').textContent = t.title;
+            document.querySelector('.project-description').textContent = t.description;
+            const extraElements = document.querySelectorAll('.project-description-extra');
+            if (extraElements.length >= 2) {
+                extraElements[0].textContent = t.extra1;
+                extraElements[1].textContent = t.extra2;
+            }
+            document.querySelector('.github-text').textContent = t.github;
+            document.querySelector('.project-date').textContent = formatDate('2025-09-07', lang);
+        });
+    </script>
+</body>
+
+</html>

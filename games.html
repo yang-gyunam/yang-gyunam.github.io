@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Yang Gyunam</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .game-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .game-list li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .game-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #8b92a0;
+        }
+
+        .game-list a {
+            color: #5694cb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .game-list a:hover {
+            text-decoration: underline;
+        }
+
+        .game-desc {
+            color: #8b92a0;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle en" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title">Web Games Collection</h1>
+                <div class="entry-meta">Interactive Projects</div>
+                <div class="entry-content">
+                    <p class="games-intro">웹 기술로 구현한 인터랙티브 게임 모음입니다. HTML5 Canvas와 JavaScript를 활용하여 제작했습니다.</p>
+                    <ul class="game-list">
+                        <li>
+                            <a href="flappy/index.html" class="game-name">플래피 버드</a>
+                            <span class="game-desc game-flappy"> — 파이프를 피해 날아가는 아케이드 게임</span>
+                        </li>
+                        <li>
+                            <a href="memory/index.html" class="game-name">기억력 게임</a>
+                            <span class="game-desc game-memory"> — 카드 매칭 메모리 트레이닝</span>
+                        </li>
+                        <li>
+                            <a href="shooting/index.html" class="game-name">스페이스 슈터</a>
+                            <span class="game-desc game-shooter"> — 우주 슈팅 액션 게임</span>
+                        </li>
+                        <li>
+                            <a href="tennis/index.html" class="game-name">테니스</a>
+                            <span class="game-desc game-tennis"> — 클래식 탁구 게임</span>
+                        </li>
+                        <li>
+                            <a href="dino/index.html" class="game-name">다이노 점프</a>
+                            <span class="game-desc game-dino"> — 엔들리스 러닝 게임</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        const gameTranslations = {
+            ko: {
+                intro: '웹 기술로 구현한 인터랙티브 게임 모음입니다. HTML5 Canvas와 JavaScript를 활용하여 제작했습니다.',
+                games: {
+                    flappy: { name: '플래피 버드', desc: ' — 파이프를 피해 날아가는 아케이드 게임' },
+                    memory: { name: '기억력 게임', desc: ' — 카드 매칭 메모리 트레이닝' },
+                    shooter: { name: '스페이스 슈터', desc: ' — 우주 슈팅 액션 게임' },
+                    tennis: { name: '테니스', desc: ' — 클래식 탁구 게임' },
+                    dino: { name: '다이노 점프', desc: ' — 엔들리스 러닝 게임' }
+                }
+            },
+            en: {
+                intro: 'Collection of interactive games implemented with web technologies. Built using HTML5 Canvas and JavaScript.',
+                games: {
+                    flappy: { name: 'Flappy Bird', desc: ' — Arcade game avoiding pipes' },
+                    memory: { name: 'Memory Game', desc: ' — Card matching memory training' },
+                    shooter: { name: 'Space Shooter', desc: ' — Space shooting action game' },
+                    tennis: { name: 'Tennis', desc: ' — Classic table tennis game' },
+                    dino: { name: 'Dino Jump', desc: ' — Endless running game' }
+                }
+            }
+        };
+
+        window.addEventListener('languageChanged', function(e) {
+            const lang = e.detail.lang;
+            const t = gameTranslations[lang];
+
+            document.querySelector('.games-intro').textContent = t.intro;
+
+            const gameNames = document.querySelectorAll('.game-name');
+            gameNames[0].textContent = t.games.flappy.name;
+            gameNames[1].textContent = t.games.memory.name;
+            gameNames[2].textContent = t.games.shooter.name;
+            gameNames[3].textContent = t.games.tennis.name;
+            gameNames[4].textContent = t.games.dino.name;
+
+            document.querySelector('.game-flappy').textContent = t.games.flappy.desc;
+            document.querySelector('.game-memory').textContent = t.games.memory.desc;
+            document.querySelector('.game-shooter').textContent = t.games.shooter.desc;
+            document.querySelector('.game-tennis').textContent = t.games.tennis.desc;
+            document.querySelector('.game-dino').textContent = t.games.dino.desc;
+        });
+    </script>
+</body>
+
+</html>
