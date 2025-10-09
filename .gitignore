@@ -2,7 +2,6 @@
 uploads/
 uploads_dev/
 logs/
-data/
 *.db
 *.db-shm
 *.db-wal

@@ -1,0 +1,91 @@
+[
+  {
+    "id": "speech-to-text",
+    "title": {
+      "ko": "Speech To Text",
+      "en": "Speech To Text"
+    },
+    "date": "2025-09-23",
+    "description": {
+      "ko": "음성을 텍스트로 변환하는 맥 앱",
+      "en": "Mac app that converts speech to text"
+    },
+    "thumbnail": "assets/projects/speech-to-text-thumb.png",
+    "images": [
+      "assets/gnyang.speechToText.20250923_1.png",
+      "assets/gnyang.speechToText.20250923_2.png"
+    ],
+    "github": "https://github.com/yang-gyunam/speech-to-text",
+    "tags": ["Swift", "macOS", "Speech Recognition"]
+  },
+  {
+    "id": "lupin",
+    "title": {
+      "ko": "Lupin",
+      "en": "Lupin"
+    },
+    "date": "2025-09-07",
+    "description": {
+      "ko": "지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다.",
+      "en": "Moves the mouse and types sentences at specified time intervals."
+    },
+    "thumbnail": "assets/gnyang.lupin.250907.png",
+    "images": [
+      "assets/gnyang.lupin.250907.png"
+    ],
+    "github": "https://github.com/yang-gyunam/lupin",
+    "tags": ["Automation", "Productivity"]
+  },
+  {
+    "id": "md-editor",
+    "title": {
+      "ko": "MD Editor",
+      "en": "MD Editor"
+    },
+    "date": "2025-08-25",
+    "description": {
+      "ko": "마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다.",
+      "en": "Open source markdown editor project. Svelte5-based markdown editor with real-time preview."
+    },
+    "thumbnail": "",
+    "images": [],
+    "github": "https://github.com/yang-gyunam/md-editor",
+    "tags": ["Svelte", "Markdown", "Editor"]
+  },
+  {
+    "id": "appshell-pro",
+    "title": {
+      "ko": "AppShell Pro",
+      "en": "AppShell Pro"
+    },
+    "date": "2025-08-24",
+    "description": {
+      "ko": "Svelte 5 기반의 모던 웹 애플리케이션 프레임워크. 모듈식 컴포넌트 구조와 테마 커스터마이징을 지원하며 최적화된 성능을 제공합니다.",
+      "en": "Modern web application framework based on Svelte 5. Supports modular component structure and theme customization with optimized performance."
+    },
+    "thumbnail": "assets/gnyang.appShell.250824_ex2.gif",
+    "images": [
+      "assets/gnyang.appShell.250824_ex2.gif"
+    ],
+    "github": "",
+    "tags": ["Svelte", "Framework", "UI"]
+  },
+  {
+    "id": "appshell",
+    "title": {
+      "ko": "AppShell",
+      "en": "AppShell"
+    },
+    "date": "2025-08-25",
+    "description": {
+      "ko": "빠른 프로토타이핑을 위한 경량 프레임워크. 최소한의 설정으로 즉시 개발을 시작할 수 있는 템플릿을 제공합니다.",
+      "en": "Lightweight framework for rapid prototyping. Provides templates for immediate development with minimal configuration."
+    },
+    "thumbnail": "assets/gnyang.appSehll.basic.250825_ex1..gif",
+    "images": [
+      "assets/gnyang.appSehll.basic.250825_ex1..gif"
+    ],
+    "github": "",
+    "tags": ["Svelte", "Framework", "Template"]
+  }
+]
