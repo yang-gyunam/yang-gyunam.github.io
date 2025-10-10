@@ -40,6 +40,13 @@ const translations = {
 
 let currentLang = localStorage.getItem('language') || 'en';
 
+// Set initial language class immediately to prevent flash
+const toggle = document.querySelector('.lang-toggle');
+if (toggle) {
+    toggle.classList.remove('ko', 'en');
+    toggle.classList.add(currentLang);
+}
+
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', function() {
     setLanguage(currentLang);

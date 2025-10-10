@@ -198,12 +198,30 @@ body {
 }
 
 .post-title a {
-    color: #4a525a;
+    color: #5694cb;
     text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.post-title a .link-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .post-title a:hover {
+    color: #2c5f96;
     text-decoration: underline;
+}
+
+.post-title a:hover .link-icon {
+    opacity: 1;
 }
 
 .post-date {

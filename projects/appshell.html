@@ -10,7 +10,7 @@
 
 <body>
     <!-- Language Toggle Button -->
-    <div class="lang-toggle en" onclick="toggleLanguage()">
+    <div class="lang-toggle" onclick="toggleLanguage()">
         <span class="lang-ko">한</span>
         <span class="lang-en">EN</span>
     </div>
@@ -52,7 +52,10 @@
                         <span class="tag">Template</span>
                     </div>
 
-                    <img src="../assets/gnyang.appSehll.basic.250825_ex1..gif" alt="AppShell Demo" class="project-image">
+                    <p class="image-instruction" style="margin: 15px 0; color: #8b92a0; font-size: 13px; font-style: italic; text-align: right;">움직이는 이미지를 크게 보시려면 탭하세요</p>
+                    <a href="../assets/gnyang.appSehll.basic.250825_ex1..gif" target="_blank">
+                        <img src="../assets/gnyang.appSehll.basic.250825_ex1..gif" alt="AppShell Demo" class="project-image" style="cursor: pointer;">
+                    </a>
                 </div>
             </article>
 
@@ -69,13 +72,15 @@
                 title: 'AppShell',
                 description: '빠른 프로토타이핑을 위한 경량 프레임워크입니다.',
                 extra1: '최소한의 설정으로 즉시 개발을 시작할 수 있는 템플릿을 제공합니다. 기본적인 레이아웃과 컴포넌트 구조가 미리 구성되어 있어 아이디어를 빠르게 구현할 수 있습니다.',
-                extra2: 'AppShell Pro의 경량 버전으로, 간단한 프로젝트나 학습 목적에 적합하며 필요에 따라 확장 가능한 구조를 가지고 있습니다.'
+                extra2: 'AppShell Pro의 경량 버전으로, 간단한 프로젝트나 학습 목적에 적합하며 필요에 따라 확장 가능한 구조를 가지고 있습니다.',
+                imageInstruction: '움직이는 이미지를 크게 보시려면 탭하세요'
             },
             en: {
                 title: 'AppShell',
                 description: 'A lightweight framework for rapid prototyping.',
                 extra1: 'Provides templates for immediate development with minimal configuration. Pre-configured basic layouts and component structures enable quick idea implementation.',
-                extra2: 'A lightweight version of AppShell Pro, suitable for simple projects or learning purposes with an expandable architecture.'
+                extra2: 'A lightweight version of AppShell Pro, suitable for simple projects or learning purposes with an expandable architecture.',
+                imageInstruction: 'Tap to view the animated image in full size'
             }
         };
 
@@ -90,6 +95,7 @@
                 extraElements[0].textContent = t.extra1;
                 extraElements[1].textContent = t.extra2;
             }
+            document.querySelector('.image-instruction').textContent = t.imageInstruction;
             document.querySelector('.project-date').textContent = formatDate('2025-08-25', lang);
         });
     </script>

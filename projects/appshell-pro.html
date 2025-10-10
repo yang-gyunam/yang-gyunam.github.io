@@ -10,7 +10,7 @@
 
 <body>
     <!-- Language Toggle Button -->
-    <div class="lang-toggle en" onclick="toggleLanguage()">
+    <div class="lang-toggle" onclick="toggleLanguage()">
         <span class="lang-ko">한</span>
         <span class="lang-en">EN</span>
     </div>
@@ -50,7 +50,10 @@
                         <span class="tag">UI</span>
                     </div>
 
-                    <img src="../assets/gnyang.appShell.250824_ex2.gif" alt="AppShell Pro Demo" class="project-image">
+                    <p class="image-instruction" style="margin: 15px 0; color: #8b92a0; font-size: 13px; font-style: italic; text-align: right;">움직이는 이미지를 크게 보시려면 탭하세요</p>
+                    <a href="../assets/gnyang.appShell.250824_ex2.gif" target="_blank">
+                        <img src="../assets/gnyang.appShell.250824_ex2.gif" alt="AppShell Pro Demo" class="project-image" style="cursor: pointer;">
+                    </a>
                 </div>
             </article>
 
@@ -66,12 +69,14 @@
             ko: {
                 title: 'AppShell Pro',
                 description: 'Svelte 5 기반의 모던 웹 애플리케이션 프레임워크. 모듈식 컴포넌트 구조와 테마 커스터마이징을 지원하며 최적화된 성능을 제공합니다.',
-                descriptionExtra: 'VSCode의 구조를 웹으로 구현한 높은 활용성의 UI 프레임워크입니다. 사이드바, 패널, 에디터 영역 등 유연한 레이아웃 시스템으로 다양한 웹 애플리케이션에 적용할 수 있습니다.'
+                descriptionExtra: 'VSCode의 구조를 웹으로 구현한 높은 활용성의 UI 프레임워크입니다. 사이드바, 패널, 에디터 영역 등 유연한 레이아웃 시스템으로 다양한 웹 애플리케이션에 적용할 수 있습니다.',
+                imageInstruction: '움직이는 이미지를 크게 보시려면 탭하세요'
             },
             en: {
                 title: 'AppShell Pro',
                 description: 'Modern web application framework based on Svelte 5. Supports modular component structure and theme customization with optimized performance.',
-                descriptionExtra: 'A highly versatile UI framework that brings VSCode\'s structure to the web. Features a flexible layout system with sidebars, panels, and editor areas that can be applied to various web applications.'
+                descriptionExtra: 'A highly versatile UI framework that brings VSCode\'s structure to the web. Features a flexible layout system with sidebars, panels, and editor areas that can be applied to various web applications.',
+                imageInstruction: 'Tap to view the animated image in full size'
             }
         };
 
@@ -82,6 +87,7 @@
             document.querySelector('.project-title').textContent = t.title;
             document.querySelector('.project-description').textContent = t.description;
             document.querySelector('.project-description-extra').textContent = t.descriptionExtra;
+            document.querySelector('.image-instruction').textContent = t.imageInstruction;
             document.querySelector('.project-date').textContent = formatDate('2025-08-24', lang);
         });
     </script>

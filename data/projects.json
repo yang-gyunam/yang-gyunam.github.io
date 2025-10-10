@@ -1,58 +1,5 @@
 [
   {
-    "id": "speech-to-text",
-    "title": {
-      "ko": "Speech To Text",
-      "en": "Speech To Text"
-    },
-    "date": "2025-09-23",
-    "description": {
-      "ko": "음성을 텍스트로 변환하는 맥 앱",
-      "en": "Mac app that converts speech to text"
-    },
-    "thumbnail": "assets/projects/speech-to-text-thumb.png",
-    "images": [
-      "assets/gnyang.speechToText.20250923_1.png",
-      "assets/gnyang.speechToText.20250923_2.png"
-    ],
-    "github": "https://github.com/yang-gyunam/speech-to-text",
-    "tags": ["Swift", "macOS", "Speech Recognition"]
-  },
-  {
-    "id": "lupin",
-    "title": {
-      "ko": "Lupin",
-      "en": "Lupin"
-    },
-    "date": "2025-09-07",
-    "description": {
-      "ko": "지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다.",
-      "en": "Moves the mouse and types sentences at specified time intervals."
-    },
-    "thumbnail": "assets/gnyang.lupin.250907.png",
-    "images": [
-      "assets/gnyang.lupin.250907.png"
-    ],
-    "github": "https://github.com/yang-gyunam/lupin",
-    "tags": ["Automation", "Productivity"]
-  },
-  {
-    "id": "md-editor",
-    "title": {
-      "ko": "MD Editor",
-      "en": "MD Editor"
-    },
-    "date": "2025-08-25",
-    "description": {
-      "ko": "마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다.",
-      "en": "Open source markdown editor project. Svelte5-based markdown editor with real-time preview."
-    },
-    "thumbnail": "",
-    "images": [],
-    "github": "https://github.com/yang-gyunam/md-editor",
-    "tags": ["Svelte", "Markdown", "Editor"]
-  },
-  {
     "id": "appshell-pro",
     "title": {
       "ko": "AppShell Pro",
@@ -87,5 +34,58 @@
     ],
     "github": "",
     "tags": ["Svelte", "Framework", "Template"]
+  },
+  {
+    "id": "lupin",
+    "title": {
+      "ko": "Lupin",
+      "en": "Lupin"
+    },
+    "date": "2025-09-07",
+    "description": {
+      "ko": "지정한 시간 간격으로 마우스를 움직이고, 문장을 타이핑합니다.",
+      "en": "Moves the mouse and types sentences at specified time intervals."
+    },
+    "thumbnail": "assets/gnyang.lupin.250907.png",
+    "images": [
+      "assets/gnyang.lupin.250907.png"
+    ],
+    "github": "https://github.com/yang-gyunam/lupin",
+    "tags": ["Automation", "Productivity"]
+  },
+  {
+    "id": "speech-to-text",
+    "title": {
+      "ko": "Speech To Text",
+      "en": "Speech To Text"
+    },
+    "date": "2025-09-23",
+    "description": {
+      "ko": "음성을 텍스트로 변환하는 맥 앱",
+      "en": "Mac app that converts speech to text"
+    },
+    "thumbnail": "assets/projects/speech-to-text-thumb.png",
+    "images": [
+      "assets/gnyang.speechToText.20250923_1.png",
+      "assets/gnyang.speechToText.20250923_2.png"
+    ],
+    "github": "https://github.com/yang-gyunam/speech-to-text",
+    "tags": ["Swift", "macOS", "Speech Recognition"]
+  },
+  {
+    "id": "md-editor",
+    "title": {
+      "ko": "MD Editor",
+      "en": "MD Editor"
+    },
+    "date": "2025-08-25",
+    "description": {
+      "ko": "마크다운 편집기 오픈 소스 프로젝트. 실시간 프리뷰, Svelte5 기반 마크다운 에디터입니다.",
+      "en": "Open source markdown editor project. Svelte5-based markdown editor with real-time preview."
+    },
+    "thumbnail": "",
+    "images": [],
+    "github": "https://github.com/yang-gyunam/md-editor",
+    "tags": ["Svelte", "Markdown", "Editor"]
   }
 ]
