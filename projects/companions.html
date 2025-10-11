@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companions - Yang Gyunam</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title project-title">Companions</h1>
+                <div class="entry-meta project-date">October 11, 2025</div>
+                <div class="entry-content">
+                    <p class="project-description">Svelte 5 기반 프로젝트 관리 대시보드 템플릿. 프로젝트 추적, 팀 협업, 요구사항 문서화, 기술 사전 등 실무에 바로 적용 가능한 기능들을 제공합니다.</p>
+
+                    <p class="project-description-extra">즉시 사용 가능한 프로젝트 템플릿으로, 프로젝트 관리에 필요한 핵심 기능들이 모두 포함되어 있습니다. Docker 지원으로 간편한 배포가 가능하며, TypeScript와 Svelte 5의 최신 기능을 활용하여 견고하고 확장 가능한 구조로 설계되었습니다.</p>
+
+                    <p class="project-description-extra">프로젝트 추적, 팀 협업 도구, 요구사항 문서화, 기술 사전 등의 기능을 통해 팀의 생산성을 높일 수 있습니다. 라이트/다크 테마 지원과 직관적인 UI로 편안한 사용 경험을 제공하며, Apache 2.0 라이선스로 자유롭게 사용 가능합니다.</p>
+
+                    <div class="post-tags" style="margin: 15px 0;">
+                        <span class="tag">Svelte</span>
+                        <span class="tag">Project Management</span>
+                        <span class="tag">Dashboard</span>
+                        <span class="tag">TypeScript</span>
+                    </div>
+
+                    <a href="https://github.com/yang-gyunam/companions" target="_blank" class="project-github">
+                        <span class="github-text">GitHub</span>
+                    </a>
+
+                    <img src="../assets/gnyang.companions.20251011_1.gif" alt="Companions Demo" class="project-image">
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        const contentTranslations = {
+            ko: {
+                title: 'Companions',
+                description: 'Svelte 5 기반 프로젝트 관리 대시보드 템플릿. 프로젝트 추적, 팀 협업, 요구사항 문서화, 기술 사전 등 실무에 바로 적용 가능한 기능들을 제공합니다.',
+                extra1: '즉시 사용 가능한 프로젝트 템플릿으로, 프로젝트 관리에 필요한 핵심 기능들이 모두 포함되어 있습니다. Docker 지원으로 간편한 배포가 가능하며, TypeScript와 Svelte 5의 최신 기능을 활용하여 견고하고 확장 가능한 구조로 설계되었습니다.',
+                extra2: '프로젝트 추적, 팀 협업 도구, 요구사항 문서화, 기술 사전 등의 기능을 통해 팀의 생산성을 높일 수 있습니다. 라이트/다크 테마 지원과 직관적인 UI로 편안한 사용 경험을 제공하며, Apache 2.0 라이선스로 자유롭게 사용 가능합니다.',
+                github: 'GitHub'
+            },
+            en: {
+                title: 'Companions',
+                description: 'Project management dashboard template built with Svelte 5. Ready-to-use template featuring project tracking, team collaboration, requirements documentation, and technical dictionary.',
+                extra1: 'A ready-to-use project template with all essential project management features included. Supports easy deployment with Docker, and is built with a robust and scalable architecture utilizing TypeScript and the latest Svelte 5 features.',
+                extra2: 'Boost your team\'s productivity with features like project tracking, team collaboration tools, requirements documentation, and technical dictionary. Provides a comfortable user experience with light/dark theme support and intuitive UI, freely available under the Apache 2.0 license.',
+                github: 'GitHub'
+            }
+        };
+
+        window.addEventListener('languageChanged', function(e) {
+            const lang = e.detail.lang;
+            const t = contentTranslations[lang];
+
+            document.querySelector('.project-title').textContent = t.title;
+            document.querySelector('.project-description').textContent = t.description;
+            const extraElements = document.querySelectorAll('.project-description-extra');
+            if (extraElements.length >= 2) {
+                extraElements[0].textContent = t.extra1;
+                extraElements[1].textContent = t.extra2;
+            }
+            document.querySelector('.github-text').textContent = t.github;
+            document.querySelector('.project-date').textContent = formatDate('2025-10-11', lang);
+        });
+    </script>
+</body>
+
+</html>

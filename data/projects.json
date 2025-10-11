@@ -1,5 +1,23 @@
 [
   {
+    "id": "companions",
+    "title": {
+      "ko": "Companions",
+      "en": "Companions"
+    },
+    "date": "2025-10-11",
+    "description": {
+      "ko": "Svelte 5 기반 프로젝트 관리 대시보드 템플릿. 프로젝트 추적, 팀 협업, 요구사항 문서화, 기술 사전 등 실무에 바로 적용 가능한 기능들을 제공합니다.",
+      "en": "Project management dashboard template built with Svelte 5. Ready-to-use template featuring project tracking, team collaboration, requirements documentation, and technical dictionary."
+    },
+    "thumbnail": "assets/gnyang.companions.20251011_1.gif",
+    "images": [
+      "assets/gnyang.companions.20251011_1.gif"
+    ],
+    "github": "https://github.com/yang-gyunam/companions",
+    "tags": ["Svelte", "Project Management", "Dashboard", "TypeScript"]
+  },
+  {
     "id": "appshell-pro",
     "title": {
       "ko": "AppShell Pro",
