@@ -40,19 +40,49 @@
                 <h1 class="entry-title project-title">AppShell Pro</h1>
                 <div class="entry-meta project-date">August 24, 2025</div>
                 <div class="entry-content">
-                    <p class="project-description">Svelte 5 기반의 모던 웹 애플리케이션 프레임워크. 모듈식 컴포넌트 구조와 테마 커스터마이징을 지원하며 최적화된 성능을 제공합니다.</p>
+                    <p class="project-description">모듈형 웹 애플리케이션 개발 플랫폼</p>
+                    <p class="project-subtitle">VSCode 스타일의 UI와 플러그인 방식의 모듈 시스템을 갖춘 풀스택 웹 애플리케이션 개발 프로젝트입니다.</p>
 
-                    <p class="project-description-extra">VSCode의 구조를 웹으로 구현한 높은 활용성의 UI 프레임워크입니다. 사이드바, 패널, 에디터 영역 등 유연한 레이아웃 시스템으로 다양한 웹 애플리케이션에 적용할 수 있습니다.</p>
+                    <h3 class="section-title">확장 가능한 모듈 아키텍처</h3>
+                    <p class="section-content">.NET 9 백엔드와 Svelte 5 프론트엔드로 구성되어 있으며, 비즈니스 모듈을 독립적으로 개발하고 통합할 수 있는 구조를
+                        목표로 합니다. Clean Architecture 패턴을 따르며, ProductManagement와 AdminManagement 샘플 모듈이 포함되어 있습니다. 각 모듈은
+                        자체 데이터베이스 스키마와 권한 체계를 가질 수 있도록 설계되었습니다.</p>
+
+                    <h3 class="section-title">개발자 친화적인 UI 구조</h3>
+                    <p class="section-content">VSCode의 레이아웃(Activity Bar, Sidebar, Editor, Panels)에서 영감을 받아 개발자에게 익숙한
+                        인터페이스를 웹으로 구현하고 있습니다. Svelte 5의 최신 기능과 Atomic Design 패턴을 활용하여 재사용 가능한 컴포넌트 구조를 갖추고 있으며, 멀티탭과 분할
+                        뷰 등의 기능을 지원합니다. 다크/라이트 테마와 반응형 디자인도 구현되어 있습니다.</p>
+
+                    <h3 class="section-title">기본적인 인증과 권한 관리</h3>
+                    <p class="section-content">JWT 기반 인증 시스템과 역할 기반 접근 제어(RBAC)를 구현했습니다. 사용자, 역할, 권한을 관리할 수 있는 기본 기능이
+                        포함되어 있으며, Entity Framework Core를 사용한 데이터베이스 접근과 FluentValidation을 통한 입력 검증을 적용했습니다. </p>
+
+                    <h3 class="section-title">개발 환경과 테스트 구성</h3>
+                    <p class="section-content">Docker Compose를 통한 개발 환경 설정, Playwright 기반 E2E 테스트 프레임워크, 백엔드 통합
+                        테스트(37개), TypeScript와 ESLint를 활용한 코드 품질 관리 도구가 구성되어 있습니다. Development/Test/Production 환경별 설정 분리,
+                        다국어 지원 구조, Tailwind CSS 기반 스타일링 시스템 등 실무 프로젝트에 필요한 기본 구성을 갖추고 있습니다.</p>
+
+                    <p class="tech-stack"><strong>기술 스택:</strong> .NET 9 | Svelte 5 | TypeScript | Entity Framework Core
+                        | Tailwind CSS | Docker | Playwright</p>
+                    <p class="project-status"><strong>현재 상태:</strong> 활발히 개발 중인 프로젝트로, 핵심 기능은 구현되어 있으나 지속적으로 개선하고 있습니다.
+                    </p>
 
                     <div class="post-tags" style="margin: 15px 0;">
-                        <span class="tag">Svelte</span>
-                        <span class="tag">Framework</span>
-                        <span class="tag">UI</span>
+                        <span class="tag">.NET 9</span>
+                        <span class="tag">Svelte 5</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Entity Framework Core</span>
+                        <span class="tag">Tailwind CSS</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Playwright</span>
                     </div>
 
-                    <p class="image-instruction" style="margin: 15px 0; color: #8b92a0; font-size: 13px; font-style: italic; text-align: right;">움직이는 이미지를 크게 보시려면 탭하세요</p>
+                    <p class="image-instruction"
+                        style="margin: 15px 0; color: #8b92a0; font-size: 13px; font-style: italic; text-align: right;">
+                        움직이는 이미지를 크게 보시려면 탭하세요</p>
                     <a href="../assets/gnyang.appShell.250824_ex2.gif" target="_blank">
-                        <img src="../assets/gnyang.appShell.250824_ex2.gif" alt="AppShell Pro Demo" class="project-image" style="cursor: pointer;">
+                        <img src="../assets/gnyang.appShell.250824_ex2.gif" alt="AppShell Pro Demo"
+                            class="project-image" style="cursor: pointer;">
                     </a>
                 </div>
             </article>
@@ -68,25 +98,60 @@
         const contentTranslations = {
             ko: {
                 title: 'AppShell Pro',
-                description: 'Svelte 5 기반의 모던 웹 애플리케이션 프레임워크. 모듈식 컴포넌트 구조와 테마 커스터마이징을 지원하며 최적화된 성능을 제공합니다.',
-                descriptionExtra: 'VSCode의 구조를 웹으로 구현한 높은 활용성의 UI 프레임워크입니다. 사이드바, 패널, 에디터 영역 등 유연한 레이아웃 시스템으로 다양한 웹 애플리케이션에 적용할 수 있습니다.',
+                description: '모듈형 웹 애플리케이션 개발 플랫폼',
+                subtitle: 'VSCode 스타일의 UI와 플러그인 방식의 모듈 시스템을 갖춘 풀스택 웹 애플리케이션 개발 프로젝트입니다.',
+                sectionTitle1: '확장 가능한 모듈 아키텍처',
+                sectionContent1: '.NET 9 백엔드와 Svelte 5 프론트엔드로 구성되어 있으며, 비즈니스 모듈을 독립적으로 개발하고 통합할 수 있는 구조를 목표로 합니다. Clean Architecture 패턴을 따르며, ProductManagement와 AdminManagement 샘플 모듈이 포함되어 있습니다. 각 모듈은 자체 데이터베이스 스키마와 권한 체계를 가질 수 있도록 설계되었습니다.',
+                sectionTitle2: '개발자 친화적인 UI 구조',
+                sectionContent2: 'VSCode의 레이아웃(Activity Bar, Sidebar, Editor, Panels)에서 영감을 받아 개발자에게 익숙한 인터페이스를 웹으로 구현하고 있습니다. Svelte 5의 최신 기능과 Atomic Design 패턴을 활용하여 재사용 가능한 컴포넌트 구조를 갖추고 있으며, 멀티탭과 분할 뷰 등의 기능을 지원합니다. 다크/라이트 테마와 반응형 디자인도 구현되어 있습니다.',
+                sectionTitle3: '기본적인 인증과 권한 관리',
+                sectionContent3: 'JWT 기반 인증 시스템과 역할 기반 접근 제어(RBAC)를 구현했습니다. 사용자, 역할, 권한을 관리할 수 있는 기본 기능이 포함되어 있으며, Entity Framework Core를 사용한 데이터베이스 접근과 FluentValidation을 통한 입력 검증을 적용했습니다.',
+                sectionTitle4: '개발 환경과 테스트 구성',
+                sectionContent4: 'Docker Compose를 통한 개발 환경 설정, Playwright 기반 E2E 테스트 프레임워크, 백엔드 통합 테스트(37개), TypeScript와 ESLint를 활용한 코드 품질 관리 도구가 구성되어 있습니다. Development/Test/Production 환경별 설정 분리, 다국어 지원 구조, Tailwind CSS 기반 스타일링 시스템 등 실무 프로젝트에 필요한 기본 구성을 갖추고 있습니다.',
+                techStack: '기술 스택: .NET 9 | Svelte 5 | TypeScript | Entity Framework Core | Tailwind CSS | Docker | Playwright',
+                projectStatus: '현재 상태: 활발히 개발 중인 프로젝트로, 핵심 기능은 구현되어 있으나 지속적으로 개선하고 있습니다.',
                 imageInstruction: '움직이는 이미지를 크게 보시려면 탭하세요'
             },
             en: {
                 title: 'AppShell Pro',
-                description: 'Modern web application framework based on Svelte 5. Supports modular component structure and theme customization with optimized performance.',
-                descriptionExtra: 'A highly versatile UI framework that brings VSCode\'s structure to the web. Features a flexible layout system with sidebars, panels, and editor areas that can be applied to various web applications.',
+                description: 'Modular Web Application Development Platform',
+                subtitle: 'Full-stack web application development project featuring VSCode-style UI and plugin-based module system.',
+                sectionTitle1: 'Scalable Module Architecture',
+                sectionContent1: 'Built with .NET 9 backend and Svelte 5 frontend, designed to enable independent development and integration of business modules. Follows Clean Architecture pattern and includes ProductManagement and AdminManagement sample modules. Each module is designed to have its own database schema and permission system.',
+                sectionTitle2: 'Developer-Friendly UI Structure',
+                sectionContent2: 'Inspired by VSCode layout (Activity Bar, Sidebar, Editor, Panels) to implement a familiar interface for developers on the web. Features reusable component structure using Svelte 5\'s latest features and Atomic Design pattern, supporting multi-tab and split view functionality. Dark/light themes and responsive design are also implemented.',
+                sectionTitle3: 'Authentication and Authorization Management',
+                sectionContent3: 'Implements JWT-based authentication system and Role-Based Access Control (RBAC). Includes basic functionality for managing users, roles, and permissions, with Entity Framework Core for database access and FluentValidation for input validation.',
+                sectionTitle4: 'Development Environment and Testing Setup',
+                sectionContent4: 'Configured with Docker Compose development environment setup, Playwright-based E2E testing framework, backend integration tests (37 tests), and code quality management tools using TypeScript and ESLint. Features environment-specific configuration separation for Development/Test/Production, internationalization support structure, and Tailwind CSS-based styling system - all essential configurations needed for production projects.',
+                techStack: 'Tech Stack: .NET 9 | Svelte 5 | TypeScript | Entity Framework Core | Tailwind CSS | Docker | Playwright',
+                projectStatus: 'Current Status: Actively developed project with core features implemented, continuously being improved.',
                 imageInstruction: 'Tap to view the animated image in full size'
             }
         };
 
-        window.addEventListener('languageChanged', function(e) {
+        window.addEventListener('languageChanged', function (e) {
             const lang = e.detail.lang;
             const t = contentTranslations[lang];
 
             document.querySelector('.project-title').textContent = t.title;
             document.querySelector('.project-description').textContent = t.description;
-            document.querySelector('.project-description-extra').textContent = t.descriptionExtra;
+            document.querySelector('.project-subtitle').textContent = t.subtitle;
+
+            const sectionTitles = document.querySelectorAll('.section-title');
+            const sectionContents = document.querySelectorAll('.section-content');
+
+            if (sectionTitles[0]) sectionTitles[0].textContent = t.sectionTitle1;
+            if (sectionContents[0]) sectionContents[0].textContent = t.sectionContent1;
+            if (sectionTitles[1]) sectionTitles[1].textContent = t.sectionTitle2;
+            if (sectionContents[1]) sectionContents[1].textContent = t.sectionContent2;
+            if (sectionTitles[2]) sectionTitles[2].textContent = t.sectionTitle3;
+            if (sectionContents[2]) sectionContents[2].textContent = t.sectionContent3;
+            if (sectionTitles[3]) sectionTitles[3].textContent = t.sectionTitle4;
+            if (sectionContents[3]) sectionContents[3].textContent = t.sectionContent4;
+
+            document.querySelector('.tech-stack').innerHTML = '<strong>' + t.techStack.split(':')[0] + ':</strong>' + t.techStack.split(':')[1];
+            document.querySelector('.project-status').innerHTML = '<strong>' + t.projectStatus.split(':')[0] + ':</strong>' + t.projectStatus.split(':')[1];
             document.querySelector('.image-instruction').textContent = t.imageInstruction;
             document.querySelector('.project-date').textContent = formatDate('2025-08-24', lang);
         });
