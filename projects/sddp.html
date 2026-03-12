@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDDP - Yang Gyunam</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <!-- Language Toggle Button -->
+    <div class="lang-toggle" onclick="toggleLanguage()">
+        <span class="lang-ko">한</span>
+        <span class="lang-en">EN</span>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="site-header">
+                <a href="/" class="site-title">Yang Gyunam</a>
+                <div class="site-tagline">Software Engineer</div>
+            </header>
+
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <!-- <li><a href="/articles/">Articles</a></li> -->
+                    <li><a href="/games.html">Games</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <article class="entry">
+                <h1 class="entry-title project-title">SDDP</h1>
+                <div class="entry-meta project-date">March 12, 2026</div>
+                <div class="entry-content">
+                    <p class="project-subtitle">Spec-Driven Development Platform</p>
+
+                    <p class="project-description">논의를 구조화된 스펙으로 전환하고, 합의를 보존하며, 코드와 스펙 간의 차이를 추적하는 개발 플랫폼입니다.</p>
+
+                    <p class="project-description-extra">코드는 "무엇"을 말하지만 "왜"는 말하지 않습니다. AI가 코드를 쏟아내는 시대에도 합의를 기록하고 보존하는 일은 여전히 사람의 몫입니다. SDDP는 이 문제에 대한 답입니다.</p>
+
+                    <p class="project-description-extra">핵심 아이디어는 단순합니다. 논의를 구조화된 스펙으로 전환하고, 합의를 영속적으로 보존하며, 코드가 스펙을 벗어나면 이를 감지합니다. 승인된 스펙은 잠금(Lock)되고, 변경이 필요하면 새 버전을 만듭니다. Git이 코드의 변경 이력을 보존하듯, SDDP는 결정의 변경 이력을 보존합니다.</p>
+
+                    <a href="https://github.com/yang-gyunam/sddp" target="_blank" class="project-github">
+                        <span class="github-text">GitHub</span>
+                    </a>
+
+                    <img src="../assets/gnyang.sddp.spec-flow.gif" alt="Spec 상태 흐름: Draft → InReview → Approved → Locked" class="project-image">
+
+                    <h3 class="project-section-title">SDDP Square</h3>
+                    <pre class="project-diagram">    Conversation
+        ↓
+    Requirement
+        ↓
+       Spec ←──── Rule (Drift 감지)
+        ↓              ↑
+      Code ────────────┘</pre>
+
+                    <p class="project-description-extra">논의(Conversation)에서 요구사항이 나오고, 요구사항이 스펙으로 구체화되고, 스펙에서 코드가 생성됩니다. 코드가 스펙을 벗어나면 Rule이 감지합니다.</p>
+
+                    <img src="../assets/gnyang.sddp.sddp-square.gif" alt="SDDP Square: Conversation → Requirement → Spec → Code" class="project-image">
+
+                    <blockquote class="project-quote">"사람은 결정하고, 스펙은 기억하며, 코드는 증명한다."</blockquote>
+
+                    <img src="../assets/gnyang.sddp.app-shell.gif" alt="SDDP App Shell 전체 화면" class="project-image">
+
+                    <h3 class="project-section-title">Tech Stack</h3>
+                    <div class="post-tags" style="margin: 15px 0;">
+                        <span class="tag">.NET 10</span>
+                        <span class="tag">Svelte</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Redis</span>
+                    </div>
+
+                </div>
+            </article>
+
+            <footer>
+                <p>Copyright © 2025 - 2026 Yang Gyunam</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../scripts/main.js"></script>
+    <script>
+        const contentTranslations = {
+            ko: {
+                title: 'SDDP',
+                subtitle: 'Spec-Driven Development Platform',
+                description: '논의를 구조화된 스펙으로 전환하고, 합의를 보존하며, 코드와 스펙 간의 차이를 추적하는 개발 플랫폼입니다.',
+                extra1: '코드는 "무엇"을 말하지만 "왜"는 말하지 않습니다. AI가 코드를 쏟아내는 시대에도 합의를 기록하고 보존하는 일은 여전히 사람의 몫입니다. SDDP는 이 문제에 대한 답입니다.',
+                extra2: '핵심 아이디어는 단순합니다. 논의를 구조화된 스펙으로 전환하고, 합의를 영속적으로 보존하며, 코드가 스펙을 벗어나면 이를 감지합니다. 승인된 스펙은 잠금(Lock)되고, 변경이 필요하면 새 버전을 만듭니다. Git이 코드의 변경 이력을 보존하듯, SDDP는 결정의 변경 이력을 보존합니다.',
+                extra3: '논의(Conversation)에서 요구사항이 나오고, 요구사항이 스펙으로 구체화되고, 스펙에서 코드가 생성됩니다. 코드가 스펙을 벗어나면 Rule이 감지합니다.',
+                sectionSquare: 'SDDP 사각형',
+                sectionTech: '기술 스택',
+                diagram: '    Conversation\n        ↓\n    Requirement\n        ↓\n       Spec ←──── Rule (Drift 감지)\n        ↓              ↑\n      Code ────────────┘',
+                quote: '"사람은 결정하고, 스펙은 기억하며, 코드는 증명한다."',
+                github: 'GitHub'
+            },
+            en: {
+                title: 'SDDP',
+                subtitle: 'Spec-Driven Development Platform',
+                description: 'Transform discussions into structured specs, preserve agreements, and track drift between code and specs.',
+                extra1: 'Code tells you "what" but never tells you "why." Even in the age of AI-generated code, recording and preserving agreements is still a human responsibility. SDDP is the answer to this problem.',
+                extra2: 'The core idea is simple. Transform discussions into structured specs, permanently preserve agreements, and detect when code drifts from the spec. Approved specs are locked. When changes are needed, you create a new version. Just as Git preserves the change history of code, SDDP preserves the change history of decisions.',
+                extra3: 'Requirements emerge from conversations, requirements are refined into specs, and code is generated from specs. When code drifts from the spec, a Rule detects it.',
+                sectionSquare: 'SDDP Square',
+                sectionTech: 'Tech Stack',
+                diagram: '    Conversation\n        ↓\n    Requirement\n        ↓\n       Spec ←──── Rule (Drift Detection)\n        ↓              ↑\n      Code ────────────┘',
+                quote: '"People decide, specs remember, code proves."',
+                github: 'GitHub'
+            }
+        };
+
+        window.addEventListener('languageChanged', function(e) {
+            const lang = e.detail.lang;
+            const t = contentTranslations[lang];
+
+            document.querySelector('.project-title').textContent = t.title;
+            document.querySelector('.project-subtitle').textContent = t.subtitle;
+            document.querySelector('.project-description').textContent = t.description;
+            const extraElements = document.querySelectorAll('.project-description-extra');
+            if (extraElements.length >= 3) {
+                extraElements[0].textContent = t.extra1;
+                extraElements[1].textContent = t.extra2;
+                extraElements[2].textContent = t.extra3;
+            }
+            const sectionTitles = document.querySelectorAll('.project-section-title');
+            if (sectionTitles.length >= 2) {
+                sectionTitles[0].textContent = t.sectionSquare;
+                sectionTitles[1].textContent = t.sectionTech;
+            }
+            document.querySelector('.project-diagram').textContent = t.diagram;
+            document.querySelector('.project-quote').textContent = t.quote;
+            document.querySelector('.github-text').textContent = t.github;
+            document.querySelector('.project-date').textContent = formatDate('2026-03-12', lang);
+        });
+    </script>
+</body>
+
+</html>

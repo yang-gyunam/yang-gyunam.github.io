@@ -1,5 +1,25 @@
 [
   {
+    "id": "sddp",
+    "title": {
+      "ko": "SDDP",
+      "en": "SDDP"
+    },
+    "date": "2026-03-12",
+    "description": {
+      "ko": "Spec-Driven Development Platform. 논의를 구조화된 스펙으로 전환하고, 합의를 보존하며, 코드와 스펙 간의 차이를 추적하는 개발 플랫폼입니다.",
+      "en": "Spec-Driven Development Platform. Transform discussions into structured specs, preserve agreements, and track drift between code and specs."
+    },
+    "thumbnail": "assets/gnyang.sddp.app-shell.gif",
+    "images": [
+      "assets/gnyang.sddp.app-shell.gif",
+      "assets/gnyang.sddp.spec-flow.gif",
+      "assets/gnyang.sddp.sddp-square.gif"
+    ],
+    "github": "https://github.com/yang-gyunam/sddp",
+    "tags": [".NET 10", "Svelte", "TypeScript", "Docker", "PostgreSQL", "Redis"]
+  },
+  {
     "id": "companions",
     "title": {
       "ko": "Companions",

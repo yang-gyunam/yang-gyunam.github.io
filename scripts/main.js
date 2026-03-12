@@ -15,7 +15,7 @@ const translations = {
             github: 'GitHub:'
         },
         footer: {
-            copyright: 'Copyright © 2025 Yang Gyunam'
+            copyright: 'Copyright © 2025 - 2026 Yang Gyunam'
         }
     },
     en: {
@@ -33,7 +33,7 @@ const translations = {
             github: 'GitHub:'
         },
         footer: {
-            copyright: 'Copyright © 2025 Yang Gyunam'
+            copyright: 'Copyright © 2025 - 2026 Yang Gyunam'
         }
     }
 };
